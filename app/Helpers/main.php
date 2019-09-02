@@ -5,6 +5,7 @@
     use App\Models\Major;
     use App\Models\Room;
     use App\Models\School;
+    use App\Models\SummerSchool;
     use App\Models\UniversityExchange;
     use App\Models\UniversityJoint;
 
@@ -189,6 +190,15 @@
     {
         $universities = [null => 'Choose University'];
         foreach (UniversityJoint::all() as $data) {
+            $universities = array_add($universities, $data->id, $data->name);
+        }
+        return $universities;
+    }
+
+    function getSummerSchools()
+    {
+        $universities = [null => 'Choose University'];
+        foreach (SummerSchool::all() as $data) {
             $universities = array_add($universities, $data->id, $data->name);
         }
         return $universities;

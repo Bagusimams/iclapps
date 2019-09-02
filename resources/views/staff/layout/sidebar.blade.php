@@ -95,7 +95,7 @@
       </li>
       <li class="{{ Request::segment(2) == 'summer' || Request::segment(2) == 'summer-school' ? 'active' : ''  }} treeview">
         <a href="#">
-          <i class="fa fa-handshake-o"></i><span> Summer School</span>
+          <i class="fa fa-tree"></i><span> Summer School</span>
           <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
           </span>
@@ -109,7 +109,7 @@
       </li>
       <li class="{{ Request::segment(2) == 'winter' || Request::segment(2) == 'winter-school' ? 'active' : ''  }} treeview">
         <a href="#">
-          <i class="fa fa-handshake-o"></i><span> Winter School</span>
+          <i class="fa fa-snowflake-o"></i><span> Winter School</span>
           <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
           </span>
