@@ -227,12 +227,12 @@
         </div>
 
         <div class="form-group">
-            {!! Form::label('summer_school_id', 'Summer School', array('class' => 'col-sm-2 control-label')) !!}
+            {!! Form::label('winter_school_id', 'Winter School', array('class' => 'col-sm-2 control-label')) !!}
             <div class="col-sm-3">
                 @if($SubmitButtonText != 'Tambah')
-                    {!! Form::text('summer_school', $exchange->summer_school->name, array('class' => 'form-control', 'readonly' => 'readonly')) !!}
+                    {!! Form::text('winter_school', $exchange->winter_school->name, array('class' => 'form-control', 'readonly' => 'readonly')) !!}
                 @else
-                    {!! Form::select('summer_school_id', getSummerSchools(), null, ['class' => 'form-control select2', 'style'=>'width: 100%']) !!}
+                    {!! Form::select('winter_school_id', getWinterSchools(), null, ['class' => 'form-control select2', 'style'=>'width: 100%']) !!}
                 @endif
             </div>
         </div>
@@ -477,16 +477,16 @@
 @elseif($SubmitButtonText == 'View')
     @if(Auth::guard('student')->user())
         @if($exchange->final_report == null)
-            <a href="{{ url('/' . $role . '/summer/edit') }}" class="btn btn-success btn-flat btn-block form-control">Edit Summer School Program Form</a>
+            <a href="{{ url('/' . $role . '/winter/edit') }}" class="btn btn-success btn-flat btn-block form-control">Edit Winter School Program Form</a>
         @endif
     @else
         @if($exchange->is_form_complete == 0)
-            <a href="{{ url('/' . $role . '/summer/' . $exchange->id . '/accept') }}" class="btn btn-info btn-flat btn-block form-control">Accept Summer School Program Form</a>
-            <a href="{{ url('/' . $role . '/summer/' . $exchange->id . '/reject') }}" class="btn btn-danger btn-flat btn-block form-control">Reject Summer School Program Form</a>
+            <a href="{{ url('/' . $role . '/winter/' . $exchange->id . '/accept') }}" class="btn btn-info btn-flat btn-block form-control">Accept Winter School Program Form</a>
+            <a href="{{ url('/' . $role . '/winter/' . $exchange->id . '/reject') }}" class="btn btn-danger btn-flat btn-block form-control">Reject Winter School Program Form</a>
         @elseif($exchange->is_ticket_complete == 0 && $exchange->is_form_complete == 1)
-            <a href="{{ url('/' . $role . '/summer/' . $exchange->id . '/ticket') }}" class="btn btn-warning btn-flat btn-block form-control">Accept Summer School Program Ticket</a>
+            <a href="{{ url('/' . $role . '/winter/' . $exchange->id . '/ticket') }}" class="btn btn-warning btn-flat btn-block form-control">Accept Winter School Program Ticket</a>
         @elseif($exchange->is_payment_complete == 0 && $exchange->is_form_complete == 1)
-            <a href="{{ url('/' . $role . '/summer/' . $exchange->id . '/payment') }}" class="btn btn-danger btn-flat btn-block form-control">Accept Summer School Program Payment</a>
+            <a href="{{ url('/' . $role . '/winter/' . $exchange->id . '/payment') }}" class="btn btn-danger btn-flat btn-block form-control">Accept Winter School Program Payment</a>
         @endif
     @endif
 @endif

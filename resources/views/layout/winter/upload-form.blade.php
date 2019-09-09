@@ -42,7 +42,7 @@
 @elseif($SubmitButtonText == 'Tambah')
     {!! Form::submit($SubmitButtonText, ['class' => 'btn btn-success btn-flat btn-block form-control'])  !!}
 @elseif($SubmitButtonText == 'View')
-    <a href="{{ url('/' . $role . '/summer-school/' . $university->id . '/edit') }}" class="btn btn-info btn-flat btn-block form-control">Edit Summer School Detail</a>
+    <a href="{{ url('/' . $role . '/winter-school/' . $university->id . '/edit') }}" class="btn btn-info btn-flat btn-block form-control">Edit Winter School Detail</a>
 @endif
 
 @section('javascript-addon')

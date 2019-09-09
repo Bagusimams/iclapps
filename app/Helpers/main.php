@@ -8,6 +8,7 @@
     use App\Models\SummerSchool;
     use App\Models\UniversityExchange;
     use App\Models\UniversityJoint;
+    use App\Models\WinterSchool;
 
     function alert()
     {
@@ -199,6 +200,15 @@
     {
         $universities = [null => 'Choose University'];
         foreach (SummerSchool::all() as $data) {
+            $universities = array_add($universities, $data->id, $data->name);
+        }
+        return $universities;
+    }
+
+    function getWinterSchools()
+    {
+        $universities = [null => 'Choose University'];
+        foreach (WinterSchool::all() as $data) {
             $universities = array_add($universities, $data->id, $data->name);
         }
         return $universities;

@@ -19,12 +19,12 @@
 
 <section class="content-header">
   <h1>
-    Summer School Program List
+    Winter School Program List
   </h1>
   <a href="{{ url($role. '/') }}" class="no-link"><i class="fa fa-arrow-circle-o-left tosca"></i> Back</a>
   <ol class="breadcrumb">
     <li><a href="{{ url($role. '/') }}">Home</a></li>
-    <li class="active">Summer School Program List</li>
+    <li class="active">Winter School Program List</li>
   </ol>
 </section>
 
@@ -34,14 +34,14 @@
       <div class="col-sm-8">
           {!! Form::label('university_id', 'University', array('class' => 'col-sm-2 control-label')) !!}
           <div class="col-sm-5">
-            {!! Form::select('university_id', getSummerSchools(), $university_id, ['class' => 'form-control', 'style'=>'width: 100%', 'id' => 'university_id', 'onchange' => 'advanceSearch()']) !!}
+            {!! Form::select('university_id', getWinterSchools(), $university_id, ['class' => 'form-control', 'style'=>'width: 100%', 'id' => 'university_id', 'onchange' => 'advanceSearch()']) !!}
           </div>
           {!! Form::label('show', 'Show', array('class' => 'col-sm-1 control-label')) !!}
           <div class="col-sm-2">
             {!! Form::select('show', getPagination(), $pagination, ['class' => 'form-control', 'style'=>'width: 100%', 'id' => 'show', 'onchange' => 'advanceSearch()']) !!}
           </div>
           @if($role == 'staff')
-            <a href="{{ url($role. '/summer/' . $university_id . '/upload') }}" class="btn btn-success">Upload</a>
+            <a href="{{ url($role. '/winter/' . $university_id . '/upload') }}" class="btn btn-success">Upload</a>
           @endif
       </div>
       <div class="col-sm-4">
@@ -49,7 +49,7 @@
       </div>
       @if(Auth::guard('lecturer')->user() && isset($pre))
         <div class="col-sm-8">
-          @include('layout.summer.pre')
+          @include('layout.winter.pre')
         </div>
       @endif
       <table id="example1" class="table table-bordered table-striped">
@@ -79,38 +79,38 @@
               <td>{{ $exchange->full_name }}</td>
               <td>{{ $exchange->school->name }}</td>
               <td>{{ $exchange->major->name }}</td>
-              <td>{{ $exchange->summer_school->name }}</td>
+              <td>{{ $exchange->winter_school->name }}</td>
               @if(Auth::guard('staff')->user())
-                <td><a href="{{ url('/' . $role. '/summer/' . $exchange->id . '/important') }}"><i class="fa fa-hand-o-right orange"></i></a></td>
-                <td><a href="{{ url('/' . $role. '/summer/' . $exchange->id . '/assign') }}"><i class="fa fa-hand-o-right pink"></i></a></td>
-                <td><a href="{{ url('/' . $role. '/summer/' . $exchange->id . '/detail') }}"><i class="fa fa-hand-o-right tosca"></i></a></td>
+                <td><a href="{{ url('/' . $role. '/winter/' . $exchange->id . '/important') }}"><i class="fa fa-hand-o-right orange"></i></a></td>
+                <td><a href="{{ url('/' . $role. '/winter/' . $exchange->id . '/assign') }}"><i class="fa fa-hand-o-right pink"></i></a></td>
+                <td><a href="{{ url('/' . $role. '/winter/' . $exchange->id . '/detail') }}"><i class="fa fa-hand-o-right tosca"></i></a></td>
                 <td>
                     <button type="button" class="no-btn" data-toggle="modal" data-target="#modal-danger-{{$exchange->id}}"><i class="fa fa-times red" aria-hidden="true"></i></button>
 
-                    @include('layout.deleteModal', ['id' => $exchange->id, 'data' => 'Summer School Program', 'formName' => 'delete-form-' . $exchange->id])
+                    @include('layout.deleteModal', ['id' => $exchange->id, 'data' => 'Winter School Program', 'formName' => 'delete-form-' . $exchange->id])
 
-                    <form id="delete-form-{{$exchange->id}}" action="{{ url('/' . $role . '/summer/' . $exchange->id . '/delete') }}" method="POST" style="display: none;">
+                    <form id="delete-form-{{$exchange->id}}" action="{{ url('/' . $role . '/winter/' . $exchange->id . '/delete') }}" method="POST" style="display: none;">
                         {{ csrf_field() }}
                         {{ method_field('DELETE') }}
                     </form>
                 </td>
               @elseif(Auth::guard('lecturer')->user())
                 <td>
-                  <form action="{{ url('/' . $role . '/summer/' . $exchange->id . '/edit') }}" method="POST">
+                  <form action="{{ url('/' . $role . '/winter/' . $exchange->id . '/edit') }}" method="POST">
                     {!! Form::textArea('lecturer_second_week_report', null, array('class' => 'form-control')) !!}
                     {{ csrf_field() }}
                     {{ method_field('PUT') }}
                   </form>
                 </td>
                 <td>
-                  <form action="{{ url('/' . $role . '/summer/' . $exchange->id . '/edit') }}" method="POST">
+                  <form action="{{ url('/' . $role . '/winter/' . $exchange->id . '/edit') }}" method="POST">
                     {!! Form::textArea('lecturer_mid_report', null, array('class' => 'form-control')) !!}
                     {{ csrf_field() }}
                     {{ method_field('PUT') }}
                   </form>
                 </td>
                 <td>
-                  <form action="{{ url('/' . $role . '/summer/' . $exchange->id . '/edit') }}" method="POST">
+                  <form action="{{ url('/' . $role . '/winter/' . $exchange->id . '/edit') }}" method="POST">
                     {!! Form::textArea('lecturer_final_report', null, array('class' => 'form-control')) !!}
                     {{ csrf_field() }}
                     {{ method_field('PUT') }}
@@ -166,7 +166,7 @@
     {
       var show          = $('#show').val();   
       var university_id = $('#university_id').val();   
-      window.location   = window.location.origin + '/{{ $role }}/summer/' + university_id + '/{{ $status }}/' + show;
+      window.location   = window.location.origin + '/{{ $role }}/winter/' + university_id + '/{{ $status }}/' + show;
     }
   </script>
 @endsection 

@@ -52,7 +52,7 @@ class WinterController extends Controller
             }
         }
 
-    	return view('staff.winter-school.index', compact('exchanges', 'type', 'color', 'data', 'pagination', 'university_id', 'status'));
+    	return view('staff.winter.index', compact('exchanges', 'type', 'color', 'data', 'pagination', 'university_id', 'status'));
     }
 
     public function important($exchange_id)
@@ -61,7 +61,7 @@ class WinterController extends Controller
 
         $exchange = WinterSchoolForm::find($exchange_id);
 
-        return view('staff.winter-school.important', compact('exchange', 'type', 'color', 'data'));
+        return view('staff.winter.important', compact('exchange', 'type', 'color', 'data'));
     }
 
     public function detail($exchange_id)
@@ -70,7 +70,7 @@ class WinterController extends Controller
 
         $exchange = WinterSchoolForm::find($exchange_id);
 
-        return view('staff.winter-school.detail', compact('exchange', 'type', 'color', 'data'));
+        return view('staff.winter.detail', compact('exchange', 'type', 'color', 'data'));
     }
 
     public function accept($exchange_id)
@@ -114,7 +114,7 @@ class WinterController extends Controller
 
         session(['alert' => 'edit', 'data' => 'Winter School']);
 
-        return redirect('/staff/winter-school/' . $exchange_id . '/detail');
+        return redirect('/staff/winter/' . $exchange_id . '/detail');
     }
 
     public function payment($exchange_id)
@@ -126,7 +126,7 @@ class WinterController extends Controller
 
         session(['alert' => 'edit', 'data' => 'Winter School']);
 
-        return redirect('/staff/winter-school/' . $exchange_id . '/detail');
+        return redirect('/staff/winter/' . $exchange_id . '/detail');
     }
 
     public function assign($exchange_id)
@@ -135,7 +135,7 @@ class WinterController extends Controller
 
         $exchange = WinterSchoolForm::find($exchange_id);
 
-        return view('staff.winter-school.assign', compact('exchange', 'type', 'color', 'data'));
+        return view('staff.winter.assign', compact('exchange', 'type', 'color', 'data'));
     }
 
     public function assignLecturer($exchange_id, Request $request)
@@ -147,7 +147,7 @@ class WinterController extends Controller
 
         session(['alert' => 'edit', 'data' => 'Winter School']);
 
-        return redirect('/staff/winter-school/' . $exchange_id . '/detail');
+        return redirect('/staff/winter/' . $exchange_id . '/detail');
     }
 
     public function upload($university_id)
@@ -171,6 +171,6 @@ class WinterController extends Controller
             array_push($exchanges, $datas);
         }
 
-        return view('staff.winter-school.upload', compact('exchanges', 'university_id', 'type', 'color', 'data'));
+        return view('staff.winter.upload', compact('exchanges', 'university_id', 'type', 'color', 'data'));
     }
 }

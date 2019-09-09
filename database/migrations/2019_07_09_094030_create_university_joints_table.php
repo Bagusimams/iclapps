@@ -17,6 +17,14 @@ class CreateUniversityJointsTable extends Migration
             $table->increments('id');
             $table->string('name')
                   ->nullable();
+            $table->boolean('status')
+                  ->default(1)
+                  ->comment('on/off')
+                  ->nullable();
+            $table->date('start')
+                  ->nullable();
+            $table->date('end')
+                  ->nullable();
                   
             $table->timestamps();
             $table->softDeletes();

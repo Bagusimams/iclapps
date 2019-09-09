@@ -64,7 +64,7 @@
       </li>
       <li class="{{ Request::segment(2) == 'dual-degree' ? 'active' : ''  }} treeview">
         <a href="#">
-          <i class="fa fa-users"></i><span>Dual Degree</span>
+          <i class="fa fa-handshake-o"></i><span>Dual Degree</span>
           <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
           </span>
@@ -75,7 +75,7 @@
       </li>
       <li class="{{ Request::segment(2) == 'summer' ? 'active' : ''  }} treeview">
         <a href="#">
-          <i class="fa fa-users"></i><span>Summer School Program</span>
+          <i class="fa fa-tree"></i><span>Summer School Program</span>
           <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
           </span>
@@ -86,7 +86,7 @@
       </li>
       <li class="{{ Request::segment(2) == 'winter' ? 'active' : ''  }} treeview">
         <a href="#">
-          <i class="fa fa-users"></i><span>Winter School Program</span>
+          <i class="fa fa-snowflake-o"></i><span>Winter School Program</span>
           <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
           </span>

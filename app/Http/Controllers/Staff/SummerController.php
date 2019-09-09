@@ -52,7 +52,7 @@ class SummerController extends Controller
             }
         }
 
-    	return view('staff.summer-school.index', compact('exchanges', 'type', 'color', 'data', 'pagination', 'university_id', 'status'));
+    	return view('staff.summer.index', compact('exchanges', 'type', 'color', 'data', 'pagination', 'university_id', 'status'));
     }
 
     public function important($exchange_id)
@@ -61,7 +61,7 @@ class SummerController extends Controller
 
         $exchange = SummerSchoolForm::find($exchange_id);
 
-        return view('staff.summer-school.important', compact('exchange', 'type', 'color', 'data'));
+        return view('staff.summer.important', compact('exchange', 'type', 'color', 'data'));
     }
 
     public function detail($exchange_id)
@@ -70,7 +70,7 @@ class SummerController extends Controller
 
         $exchange = SummerSchoolForm::find($exchange_id);
 
-        return view('staff.summer-school.detail', compact('exchange', 'type', 'color', 'data'));
+        return view('staff.summer.detail', compact('exchange', 'type', 'color', 'data'));
     }
 
     public function accept($exchange_id)
@@ -114,7 +114,7 @@ class SummerController extends Controller
 
         session(['alert' => 'edit', 'data' => 'Summer School']);
 
-        return redirect('/staff/summer-school/' . $exchange_id . '/detail');
+        return redirect('/staff/summer/' . $exchange_id . '/detail');
     }
 
     public function payment($exchange_id)
@@ -126,7 +126,7 @@ class SummerController extends Controller
 
         session(['alert' => 'edit', 'data' => 'Summer School']);
 
-        return redirect('/staff/summer-school/' . $exchange_id . '/detail');
+        return redirect('/staff/summer/' . $exchange_id . '/detail');
     }
 
     public function assign($exchange_id)
@@ -135,7 +135,7 @@ class SummerController extends Controller
 
         $exchange = SummerSchoolForm::find($exchange_id);
 
-        return view('staff.summer-school.assign', compact('exchange', 'type', 'color', 'data'));
+        return view('staff.summer.assign', compact('exchange', 'type', 'color', 'data'));
     }
 
     public function assignLecturer($exchange_id, Request $request)
@@ -147,7 +147,7 @@ class SummerController extends Controller
 
         session(['alert' => 'edit', 'data' => 'Summer School']);
 
-        return redirect('/staff/summer-school/' . $exchange_id . '/detail');
+        return redirect('/staff/summer/' . $exchange_id . '/detail');
     }
 
     public function upload($university_id)
@@ -171,6 +171,6 @@ class SummerController extends Controller
             array_push($exchanges, $datas);
         }
 
-        return view('staff.summer-school.upload', compact('exchanges', 'university_id', 'type', 'color', 'data'));
+        return view('staff.summer.upload', compact('exchanges', 'university_id', 'type', 'color', 'data'));
     }
 }
