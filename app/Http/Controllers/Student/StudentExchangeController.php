@@ -13,6 +13,7 @@ use App\Http\Requests\StudentExchangeRequest;
 use App\Models\Student;
 use App\Models\StudentExchangeForm;
 use App\Models\UniversityExchange;
+use App\Models\Variable;
 
 use App\Mail\ExchangeRegis;
 
@@ -46,16 +47,28 @@ class StudentExchangeController extends Controller
             return redirect()->back();
         }
 
-        if(!(intval($request->gpa) > 2.75 && Auth::guard('student')->user()->school_id > 1 && Auth::guard('student')->user()->school_id < 5) && !($request->gpa > 3 && (Auth::guard('student')->user()->school_id == 1 || Auth::guard('student')->user()->school_id > 4)))
+        $gpa_teknik = Variable::where('name', 'gpa_teknik_exc')->first();
+        $gpa_non    = Variable::where('name', 'gpa_non_exc')->first();
+
+        if(!(intval($request->gpa) > $gpa_teknik->score && Auth::guard('student')->user()->school_id > 1 && Auth::guard('student')->user()->school_id < 5) && !($request->gpa > $gpa_non->score && (Auth::guard('student')->user()->school_id == 1 || Auth::guard('student')->user()->school_id > 4)))
         {
             session(['alert' => 'errorGPA', 'data' => 'Pass Exp']);
 
             return redirect()->back();
         }
 
-        if(intval($request->toefl) < 500)
+        if($request->eng_type == 'ITP Toefl')
         {
-            session(['alert' => 'errorToefl', 'data' => 'Pass Exp']);
+            $eng_score_min = Variable::where('name', 'itp_exc')->first();
+        }
+        elseif($request->eng_type == 'EPRT')
+        {
+            $eng_score_min = Variable::where('name', 'eprt_exc')->first();
+        }
+
+        if(intval($request->eng_score) < $eng_score_min->score)
+        {
+            session(['alert' => 'errorToefl', 'data' => 'English Score']);
 
             return redirect()->back();
         }
@@ -115,7 +128,6 @@ class StudentExchangeController extends Controller
 
     public function update(StudentExchangeRequest $request)
     {
-        // dd(Carbon::createFromFormat('Y-m-d', $request->passport_expiry_date));die;
         $data = $request->input();
 
         $univ = UniversityExchange::where('name', $request->university_exchange)->first();
@@ -126,17 +138,29 @@ class StudentExchangeController extends Controller
 
             return redirect()->back();
         }
+        
+        $gpa_teknik = Variable::where('name', 'gpa_teknik_exc')->first();
+        $gpa_non    = Variable::where('name', 'gpa_non_exc')->first();
 
-        if(!(intval($request->gpa) > 2.75 && Auth::guard('student')->user()->school_id > 1 && Auth::guard('student')->user()->school_id < 5) && !($request->gpa > 3 && (Auth::guard('student')->user()->school_id == 1 || Auth::guard('student')->user()->school_id > 4)))
+        if(!(intval($request->gpa) > $gpa_teknik->score && Auth::guard('student')->user()->school_id > 1 && Auth::guard('student')->user()->school_id < 5) && !($request->gpa > $gpa_non->score && (Auth::guard('student')->user()->school_id == 1 || Auth::guard('student')->user()->school_id > 4)))
         {
             session(['alert' => 'errorGPA', 'data' => 'Pass Exp']);
 
             return redirect()->back();
         }
 
-        if(intval($request->toefl) < 500)
+        if($request->eng_type == 'ITP Toefl')
         {
-            session(['alert' => 'errorToefl', 'data' => 'Pass Exp']);
+            $eng_score_min = Variable::where('name', 'itp_exc')->first();
+        }
+        elseif($request->eng_type == 'EPRT')
+        {
+            $eng_score_min = Variable::where('name', 'eprt_exc')->first();
+        }
+
+        if(intval($request->eng_score) < $eng_score_min->score)
+        {
+            session(['alert' => 'errorToefl', 'data' => 'English Score']);
 
             return redirect()->back();
         }

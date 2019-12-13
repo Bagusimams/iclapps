@@ -38,18 +38,13 @@ class LectureScheduleController extends Controller
 
         if($mode == 'all')
         {
-            if($pagination == 'all') $courses = LectureSchedule::where('role', 'student')->where('status', '>', 1)->get();
-            else $courses = LectureSchedule::where('role', 'student')->where('status', '>', 1)->paginate($pagination);
+            if($pagination == 'all') $courses = LectureSchedule::where('role', 'student')->get();
+            else $courses = LectureSchedule::where('role', 'student')->paginate($pagination);
         }
-        elseif($mode == 'per') 
+        else
         {
-            if($pagination == 'all') $courses = LectureSchedule::where('role', 'student')->where('status', 3)->get();
-            else $courses = LectureSchedule::where('role', 'student')->where('status', 3)->paginate($pagination);
-        }
-        elseif($mode == 'temp')
-        {
-            if($pagination == 'all') $courses = LectureSchedule::where('role', 'student')->where('status', 4)->get();
-            else $courses = LectureSchedule::where('role', 'student')->where('status', 4)->paginate($pagination);
+            if($pagination == 'all') $courses = LectureSchedule::where('role', 'student')->where('mode', $mode)->get();
+            else $courses = LectureSchedule::where('role', 'student')->where('mode', $mode)->paginate($pagination);
         }
 
         return view('staff.lecture-schedule.index', compact('courses', 'type', 'color', 'data', 'pagination'));
@@ -71,7 +66,7 @@ class LectureScheduleController extends Controller
 
     public function getAvailableRoomByDate($start_time, $end_time, $date)
     {
-        $day = convertDays(date('l', strtotime($date)));
+        $day = date('l', strtotime($date));
         $rooms = getRoomsAvailableByDay($day, $start_time, $end_time);
         
         $result = '';

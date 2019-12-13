@@ -39,6 +39,6 @@ class ExamProctor extends Mailable
      */
     public function build()
     {
-        return $this->view('email.exam-proctor');
+        return $this->subject('[ICAO] Proctor Application')->view('email.exam-proctor');
     }
 }

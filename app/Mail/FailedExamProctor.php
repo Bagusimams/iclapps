@@ -39,6 +39,6 @@ class FailedExamProctor extends Mailable
      */
     public function build()
     {
-        return $this->view('email.failed-exam-proctor');
+        return $this->subject('[ICAO] Proctor - Notification of Decision')->view('email.failed-exam-proctor');
     }
 }

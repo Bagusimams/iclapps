@@ -96,24 +96,27 @@
                 </td>
               @elseif(Auth::guard('lecturer')->user())
                 <td>
-                  <form action="{{ url('/' . $role . '/student-exchange/' . $exchange->id . '/edit') }}" method="POST">
-                    {!! Form::textArea('lecturer_second_week_report', null, array('class' => 'form-control')) !!}
+                  <form action="{{ url('/' . $role . '/student-exchange/' . $exchange->id . '/report') }}" method="POST">
+                    {!! Form::textArea('lecturer_second_week_report', $exchange->lecturer_second_week_report, array('class' => 'form-control')) !!}<br>
                     {{ csrf_field() }}
                     {{ method_field('PUT') }}
+                    {!! Form::submit('Submit', ['class' => 'btn btn-primary btn-flat btn-block form-control'])  !!}
                   </form>
                 </td>
                 <td>
-                  <form action="{{ url('/' . $role . '/student-exchange/' . $exchange->id . '/edit') }}" method="POST">
-                    {!! Form::textArea('lecturer_mid_report', null, array('class' => 'form-control')) !!}
+                  <form action="{{ url('/' . $role . '/student-exchange/' . $exchange->id . '/report') }}" method="POST">
+                    {!! Form::textArea('lecturer_mid_report', $exchange->lecturer_mid_report, array('class' => 'form-control')) !!}<br>
                     {{ csrf_field() }}
                     {{ method_field('PUT') }}
+                    {!! Form::submit('Submit', ['class' => 'btn btn-primary btn-flat btn-block form-control'])  !!}
                   </form>
                 </td>
                 <td>
-                  <form action="{{ url('/' . $role . '/student-exchange/' . $exchange->id . '/edit') }}" method="POST">
-                    {!! Form::textArea('lecturer_final_report', null, array('class' => 'form-control')) !!}
+                  <form action="{{ url('/' . $role . '/student-exchange/' . $exchange->id . '/report') }}" method="POST">
+                    {!! Form::textArea('lecturer_final_report', $exchange->lecturer_final_report, array('class' => 'form-control')) !!}<br>
                     {{ csrf_field() }}
                     {{ method_field('PUT') }}
+                    {!! Form::submit('Submit', ['class' => 'btn btn-primary btn-flat btn-block form-control'])  !!}
                   </form>
                 </td>
               @endif

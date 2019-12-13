@@ -48,7 +48,9 @@ class CreateJointFormsTable extends Migration
                   ->nullable();
             $table->string('gpa')
                   ->nullable();
-            $table->string('toefl')
+            $table->string('eng_type')
+                  ->nullable();
+            $table->string('eng_score')
                   ->nullable();
             $table->string('semester')
                   ->nullable();

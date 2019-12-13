@@ -38,6 +38,8 @@
         <ul class="treeview-menu">
           <li class="{{ Request::segment(2) == 'room' && Request::segment(3) != 'create' && Request::segment(3) != 'booking' ? 'active' : '' }}"><a href="{{ url('staff/room/10') }}"><i class="fa fa-circle-o"></i> List</a></li>
           <li class="{{ Request::segment(2) == 'room' && Request::segment(3) == 'create' ? 'active' : '' }}"><a href="{{ url('staff/room/create') }}"><i class="fa fa-circle-o"></i> Add</a></li>
+          <li class="{{ Request::segment(2) == 'room' && Request::segment(3) == 'booking' && Request::segment(4) != 'create' ? 'active' : '' }}"><a href="{{ url('staff/room/booking/10') }}"><i class="fa fa-circle-o"></i> Booking List</a></li>
+          <li class="{{ Request::segment(2) == 'room' && Request::segment(4) == 'create' ? 'active' : '' }}"><a href="{{ url('staff/room/booking/create') }}"><i class="fa fa-circle-o"></i> Add Booking</a></li>
         </ul>
       </li>
       <li class="{{ Request::segment(2) == 'course' ? 'active' : ''  }} treeview">
@@ -55,7 +57,7 @@
       </li>
       <li class="{{ Request::segment(2) == 'exam-supervisor' ? 'active' : ''  }} treeview">
         <a href="#">
-          <i class="fa fa-university"></i><span> Exam Proctor</span>
+          <i class="fa fa-university"></i><span> Proctor</span>
           <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
           </span>
@@ -121,6 +123,8 @@
           <li class="{{ Request::segment(2) == 'winter-school' ? 'active' : '' }}"><a href="{{ url('staff/winter-school/10') }}"><i class="fa fa-circle-o"></i> University List</a></li>
         </ul>
       </li>
+      <li class="{{ Request::segment(2) == 'variable' ? 'active' : '' }}"><a href="{{ url('staff/variable/all') }}"><i class="fa fa-window-restore"></i> Variable</a></li>
+      <li class="{{ Request::segment(2) == 'internship' ? 'active' : '' }}"><a href="{{ url('staff/internship/20') }}"><i class="fa fa-window-restore"></i> Internship Programs</a></li>
     </ul>
   </section>
 </aside>

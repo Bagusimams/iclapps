@@ -29,7 +29,7 @@ class LectureScheduleRequest extends FormRequest
             'code'        => 'required',
             'lecturer_id' => 'required',
             'class'       => 'required',
-            'day'         => 'required',
+            // 'day'         => 'required',
             'start_time'  => 'required',
             'end_time'    => 'required',
             'room_id'     => 'required',

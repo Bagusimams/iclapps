@@ -48,7 +48,9 @@ class CreateStudentExchangeFormsTable extends Migration
                   ->nullable();
             $table->string('gpa')
                   ->nullable();
-            $table->string('toefl')
+            $table->string('eng_type')
+                  ->nullable();
+            $table->string('eng_score')
                   ->nullable();
             $table->string('semester')
                   ->nullable();
@@ -106,6 +108,7 @@ class CreateStudentExchangeFormsTable extends Migration
                   ->nullable();
             $table->integer('status')
                   ->comment('0 -> not set, 1 -> accepted, 2 -> rejected')
+                  ->default(0)
                   ->nullable();
             $table->longText('final_report')
                   ->nullable();

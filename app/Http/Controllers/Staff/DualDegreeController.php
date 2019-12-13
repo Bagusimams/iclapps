@@ -6,10 +6,14 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
 use Mail;
+use Carbon\Carbon;
+
+use App\Http\Requests\DualDegreeRequest;
 
 use App\Models\JointForm;
 use App\Models\Student;
 use App\Models\UniversityJoint;
+use App\Models\Variable;
 
 use App\Mail\AcceptDualDegree;
 use App\Mail\RejectDualDegree;
@@ -71,6 +75,83 @@ class DualDegreeController extends Controller
         $exchange = JointForm::find($exchange_id);
 
         return view('staff.dual-degree.detail', compact('exchange', 'type', 'color', 'data'));
+    }
+
+    public function edit($exchange_id)
+    {
+        [$type, $color, $data] = alert();
+
+        $exchange = JointForm::find($exchange_id);
+
+        return view('staff.dual-degree.edit', compact('exchange', 'type', 'color', 'data'));
+    }
+
+    public function update($exchange_id, DualDegreeRequest $request)
+    {
+        $exchange = JointForm::find($exchange_id);
+
+        $data = $request->input();
+
+        $univ = UniversityJoint::where('name', $request->university_joint)->first();
+        $univ_date = Carbon::createFromFormat('Y-m-d', $univ->end);
+        if(Carbon::createFromFormat('Y-m-d', $request->passport_expiry_date) < $univ_date->addMonths(6))
+        {
+            session(['alert' => 'errorPass', 'data' => 'Pass Exp']);
+
+            return redirect()->back();
+        }
+
+        $gpa_teknik = Variable::where('name', 'gpa_teknik_dd')->first();
+        $gpa_non    = Variable::where('name', 'gpa_non_dd')->first();
+
+        if(!(intval($request->gpa) > $gpa_teknik->score && $exchange->student->school_id > 1 && $exchange->student->school_id < 5) && !($request->gpa > $gpa_non->score && ($exchange->student->school_id == 1 || $exchange->student->school_id > 4)))
+        {
+            session(['alert' => 'errorGPA', 'data' => 'Pass Exp']);
+
+            return redirect()->back();
+        }
+
+        if($request->eng_type == 'IBT Toefl')
+        {
+            $eng_score_min = Variable::where('name', 'ibt_dd')->first();
+        }
+        elseif($request->eng_type == 'IELTS')
+        {
+            $eng_score_min = Variable::where('name', 'ielts_dd')->first();
+        }
+
+        if(intval($request->eng_score) < $eng_score_min->score)
+        {
+            session(['alert' => 'errorToefl', 'data' => 'English Score']);
+
+            return redirect()->back();
+        }
+
+        if($request->hasFile('file_admission_letter')) 
+        {
+            $data['file_admission_letter'] = $request->file('file_admission_letter')->store('admission_letter_files');
+        }
+
+        if($request->hasFile('file_ticket')) 
+        {
+            $data['file_ticket'] = $request->file('file_ticket')->store('ticket_files');
+        }
+
+        if($request->hasFile('file_visa')) 
+        {
+            $data['file_visa'] = $request->file('file_visa')->store('visa_files');
+        }
+
+        if($request->hasFile('file_payment')) 
+        {
+            $data['file_payment'] = $request->file('file_payment')->store('payment_files');
+        }
+
+        $exchange->update($data);
+
+        session(['alert' => 'edit', 'data' => 'Dual Degree']);
+
+        return redirect('/staff/dual-degree/' . $exchange_id . '/detail');
     }
 
     public function accept($exchange_id)

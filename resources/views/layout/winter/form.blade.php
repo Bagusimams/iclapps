@@ -194,12 +194,23 @@
         </div>
 
         <div class="form-group">
-            {!! Form::label('toefl', 'Toefl', array('class' => 'col-sm-2 control-label')) !!}
+            {!! Form::label('eng_type', 'English Certificate Type', array('class' => 'col-sm-2 control-label')) !!}
+            <div class="col-sm-3">
+                @if($SubmitButtonText != 'Tambah')
+                    {!! Form::text('eng_type', null, array('class' => 'form-control', 'readonly' => 'readonly')) !!}
+                @else
+                    {!! Form::select('eng_type', getWinterEng(), null, ['class' => 'form-control select2', 'style'=>'width: 100%']) !!}
+                @endif
+            </div>
+        </div>
+
+        <div class="form-group">
+            {!! Form::label('eng_score', 'English Certificate Score', array('class' => 'col-sm-2 control-label')) !!}
             <div class="col-sm-3">
                 @if($SubmitButtonText == 'View')
-                    {!! Form::text('toefl', null, array('class' => 'form-control', 'readonly' => 'readonly')) !!}
+                    {!! Form::text('eng_score', null, array('class' => 'form-control', 'readonly' => 'readonly')) !!}
                 @else
-                    {!! Form::text('toefl', null, array('class' => 'form-control')) !!}
+                    {!! Form::text('eng_score', null, array('class' => 'form-control')) !!}
                 @endif
             </div>
         </div>
@@ -480,6 +491,9 @@
             <a href="{{ url('/' . $role . '/winter/edit') }}" class="btn btn-success btn-flat btn-block form-control">Edit Winter School Program Form</a>
         @endif
     @else
+        @if($exchange->final_report == null)
+            <a href="{{ url('/' . $role . '/winter/' . $exchange->id . '/edit') }}" class="btn btn-success btn-flat btn-block form-control">Edit Winter School Program Form</a>
+        @endif
         @if($exchange->is_form_complete == 0)
             <a href="{{ url('/' . $role . '/winter/' . $exchange->id . '/accept') }}" class="btn btn-info btn-flat btn-block form-control">Accept Winter School Program Form</a>
             <a href="{{ url('/' . $role . '/winter/' . $exchange->id . '/reject') }}" class="btn btn-danger btn-flat btn-block form-control">Reject Winter School Program Form</a>

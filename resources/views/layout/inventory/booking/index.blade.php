@@ -46,12 +46,16 @@
             <tr>
               <th>Name</th>
               <th>Inventory</th>
-              <th>Room</th>
-              <th>Event</th>
-              <th>Status</th>
+              <th>Purpose</th>
+              <th>Booking Status</th>
+              <th>Inventory Status</th>
               <th>Detail</th>
-              <th>Edit</th>
-              <th>Delete</th>
+              @if(Auth::guard('staff')->user())
+                <th colspan="2" style="text-align: center;">Status Action</th>
+                <th colspan="2" style="text-align: center;">Item Action</th>
+                <th>Edit</th>
+                <th>Delete</th>
+              @endif
             </tr>
         </thead>
         <tbody id="table-course">
@@ -59,20 +63,27 @@
             <tr>
               <td>{{ $booking->name }}</td>
               <td>{{ $booking->inventory->name }}</td>
-              <td>{{ $booking->room->name }}</td>
-              <td>{{ $booking->event }}</td>
+              <td>{{ $booking->purpose }}</td>
               <td @if($booking->isApproved == '2')class="back-red"@endif>{{ $booking->isApproved() }}</td>
+              <td @if($booking->status == '1')class="back-red"@endif>{{ $booking->invStatus() }}</td>
               <td><a href="{{ url('/' . $role. '/inventory/booking/' . $booking->id . '/detail') }}"><i class="fa fa-hand-o-right tosca"></i></a></td>
-              <td><a href="{{ url('/' . $role. '/inventory/booking/' . $booking->id . '/edit') }}"><i class="fa fa-pencil-square-o orange"></i></a></td>
-              <td>
-                  <button type="button" class="no-btn" data-toggle="modal" data-target="#modal-danger-{{$booking->id}}"><i class="fa fa-times red" aria-hidden="true"></i></button>
+              @if(Auth::guard('staff')->user())
+                <td><a href="{{ url('/' . $role. '/inventory/booking/' . $booking->id . '/change/1') }}"><i class="fa fa-check @if($booking->isApproved == 1) tosca @else gray @endif" aria-hidden="true"></i></a></td>
+                <td><a href="{{ url('/' . $role. '/inventory/booking/' . $booking->id . '/change/2') }}"><i class="fa fa-ban @if($booking->isApproved == 2) red @else gray @endif" aria-hidden="true"></i></a></td>
+                <td><a href="{{ url('/' . $role. '/inventory/booking/' . $booking->id . '/item/1') }}"><i class="fa fa-check @if($booking->status == 1) tosca @else gray @endif" aria-hidden="true"></i></a></td>
+                <td><a href="{{ url('/' . $role. '/inventory/booking/' . $booking->id . '/item/2') }}"><i class="fa fa-hand-o-left @if($booking->status == 2) red @else gray @endif" aria-hidden="true"></i></a></td>
+                <td><a href="{{ url('/' . $role. '/inventory/booking/' . $booking->id . '/edit') }}"><i class="fa fa-pencil-square-o orange"></i></a></td>
+                <td>
+                    <button type="button" class="no-btn" data-toggle="modal" data-target="#modal-danger-{{$booking->id}}"><i class="fa fa-times red" aria-hidden="true"></i></button>
 
-                  @include('layout.deleteModal', ['id' => $booking->id, 'data' => 'inventory booking', 'formName' => 'delete-form-' . $booking->id])
+                    @include('layout.deleteModal', ['id' => $booking->id, 'data' => 'inventory booking', 'formName' => 'delete-form-' . $booking->id])
 
-                  <form id="delete-form-{{$booking->id}}" action="{{ url('/' . $role . '/inventory/booking/' . $booking->id . '/delete') }}" method="POST" style="display: none;">
-                      {{ csrf_field() }}
-                      {{ method_field('DELETE') }}
-                  </form></td>
+                    <form id="delete-form-{{$booking->id}}" action="{{ url('/' . $role . '/inventory/booking/' . $booking->id . '/delete') }}" method="POST" style="display: none;">
+                        {{ csrf_field() }}
+                        {{ method_field('DELETE') }}
+                    </form>
+                </td>
+              @endif
             </tr>
           @endforeach
         </tbody>

@@ -27,7 +27,8 @@ class InventoryRequest extends FormRequest
         $rules = [
             'showOnInvBookingMenu'  => 'required',
             'name'                  => 'required',
-            'isBooked'              => 'required',
+            'comment'               => 'required',
+            'stock'                 => 'required',
             'isConditionGood'       => 'required',
         ];
 

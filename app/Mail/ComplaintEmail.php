@@ -39,6 +39,6 @@ class ComplaintEmail extends Mailable
      */
     public function build()
     {
-        return $this->view('email.complaint');
+        return $this->subject('[ICAO] Complaint Report')->view('email.complaint');
     }
 }

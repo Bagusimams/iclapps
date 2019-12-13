@@ -39,6 +39,6 @@ class PerScheduleChange extends Mailable
      */
     public function build()
     {
-        return $this->view('email.per-schedule-change');
+        return $this->subject('[ICAO] Permanent Schedule Application')->view('email.per-schedule-change');
     }
 }

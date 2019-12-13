@@ -73,7 +73,7 @@ class WinterController extends Controller
         $pre = WinterSchoolPre::find($pre_id);
         $pre->update($data);
 
-        session(['alert' => 'edit', 'data' => 'Dual Degree']);
+        session(['alert' => 'edit', 'data' => 'Winter School']);
 
         return redirect('/lecturer/winter/' . $pre->university_exchange_id . '/1/10');
     }
@@ -85,7 +85,20 @@ class WinterController extends Controller
         $exchange = WinterSchoolForm::find($university_exchange_id);
         $exchange->update($data);
 
-        session(['alert' => 'edit', 'data' => 'Dual Degree']);
+        session(['alert' => 'edit', 'data' => 'Winter School']);
+
+        return redirect('/lecturer/winter/' . $exchange->university_exchange_id . '/1/10');
+    }
+
+    public function report($university_exchange_id, Request $request)
+    {
+        $data = $request->input();
+        $data['lecturer_id'] = Auth::guard('lecturer')->user()->id;
+
+        $exchange = WinterSchoolForm::find($university_exchange_id);
+        $exchange->update($data);
+
+        session(['alert' => 'edit', 'data' => 'Winter School']);
 
         return redirect('/lecturer/winter/' . $exchange->university_exchange_id . '/1/10');
     }

@@ -89,4 +89,17 @@ class StudentExchangeController extends Controller
 
         return redirect('/lecturer/student-exchange/' . $exchange->university_exchange_id . '/1/10');
     }
+
+    public function report($university_exchange_id, Request $request)
+    {
+        $data = $request->input();
+        $data['lecturer_id'] = Auth::guard('lecturer')->user()->id;
+
+        $exchange = StudentExchangeForm::find($university_exchange_id);
+        $exchange->update($data);
+
+        session(['alert' => 'edit', 'data' => 'Student Exchange']);
+
+        return redirect('/lecturer/student-exchange/' . $exchange->university_exchange_id . '/1/10');
+    }
 }

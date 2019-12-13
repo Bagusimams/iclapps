@@ -94,6 +94,30 @@ class InventoryBookingController extends Controller
         return redirect('/staff/inventory/booking/' . $booking->id);
     }
 
+    public function changeStatus($booking_id, $status)
+    {
+        $data['isApproved'] = $status;
+
+        $booking = InventoryBooking::find($booking_id);
+        $booking->update($data);
+
+        session(['alert' => 'edit', 'data' => 'Inventory booking status']);
+
+        return redirect('/staff/inventory/booking/10');
+    }
+
+    public function changeItemStatus($booking_id, $status)
+    {
+        $data['status'] = $status;
+
+        $booking = InventoryBooking::find($booking_id);
+        $booking->update($data);
+
+        session(['alert' => 'edit', 'data' => 'Inventory booking status']);
+
+        return redirect('/staff/inventory/booking/10');
+    }
+
     public function delete($booking_id)
     {
         $booking = InventoryBooking::find($booking_id);

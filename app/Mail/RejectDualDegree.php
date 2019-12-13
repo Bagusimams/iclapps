@@ -39,6 +39,6 @@ class RejectDualDegree extends Mailable
      */
     public function build()
     {
-        return $this->view('email.reject-dual-degree');
+        return $this->subject('[ICAO] Dual Degree - Notification of Decision')->view('email.reject-dual-degree');
     }
 }

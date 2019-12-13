@@ -39,6 +39,6 @@ class ExchangeRegis extends Mailable
      */
     public function build()
     {
-        return $this->view('email.exchange-regis');
+        return $this->subject('[ICAO] Student Exchange Application')->view('email.exchange-regis');
     }
 }

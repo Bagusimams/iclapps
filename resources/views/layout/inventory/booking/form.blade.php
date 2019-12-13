@@ -36,23 +36,12 @@
         </div>
 
         <div class="form-group">
-            {!! Form::label('room_id', 'Room', array('class' => 'col-sm-2 control-label')) !!}
-            <div class="col-sm-3">
-                @if($SubmitButtonText != 'Tambah')
-                    {!! Form::text('room', $booking->room->name, array('class' => 'form-control', 'readonly' => 'readonly')) !!}
-                @else
-                    {!! Form::select('room_id', getRooms(), null, ['class' => 'form-control select2', 'style'=>'width: 100%']) !!}
-                @endif
-            </div>
-        </div>
-
-        <div class="form-group">
-            {!! Form::label('event', 'Event', array('class' => 'col-sm-2 control-label')) !!}
+            {!! Form::label('purpose', 'Purpose', array('class' => 'col-sm-2 control-label')) !!}
             <div class="col-sm-3">
                 @if($SubmitButtonText == 'View')
-                    {!! Form::text('event', null, array('class' => 'form-control', 'readonly' => 'readonly')) !!}
+                    {!! Form::text('purpose', null, array('class' => 'form-control', 'readonly' => 'readonly')) !!}
                 @else
-                    {!! Form::text('event', null, array('class' => 'form-control')) !!}
+                    {!! Form::text('purpose', null, array('class' => 'form-control')) !!}
                 @endif
             </div>
         </div>
@@ -102,15 +91,21 @@
     </div>
 </div>
 
-{{ csrf_field() }}
+@if(Auth::guard('student')->user() == null)
+    {{ csrf_field() }}
 
-<hr>
-@if($SubmitButtonText == 'Edit')
-    {!! Form::submit($SubmitButtonText, ['class' => 'btn btn-warning btn-flat btn-block form-control'])  !!}
-@elseif($SubmitButtonText == 'Tambah')
-    {!! Form::submit($SubmitButtonText, ['class' => 'btn btn-success btn-flat btn-block form-control'])  !!}
-@elseif($SubmitButtonText == 'View')
-    <a href="{{ url('/' . $role . '/inventory/booking/' . $booking->id . '/edit') }}" class="btn btn-info btn-flat btn-block form-control">Edit Inventory Booking Detail</a>
+    <hr>
+    @if($SubmitButtonText == 'Edit')
+        {!! Form::submit($SubmitButtonText, ['class' => 'btn btn-warning btn-flat btn-block form-control'])  !!}
+    @elseif($SubmitButtonText == 'Tambah')
+        {!! Form::submit($SubmitButtonText, ['class' => 'btn btn-success btn-flat btn-block form-control'])  !!}
+    @elseif($SubmitButtonText == 'View')
+        <a href="{{ url('/' . $role . '/inventory/booking/' . $booking->id . '/edit') }}" class="btn btn-info btn-flat btn-block form-control">Edit Inventory Booking Detail</a>
+    @endif
+@else
+    @if($SubmitButtonText == 'Tambah')
+        {!! Form::submit($SubmitButtonText, ['class' => 'btn btn-success btn-flat btn-block form-control'])  !!}
+    @endif
 @endif
 
 @section('js-addon')

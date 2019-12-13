@@ -13,6 +13,7 @@ use App\Http\Requests\DualDegreeRequest;
 use App\Models\Student;
 use App\Models\JointForm;
 use App\Models\UniversityJoint;
+use App\Models\Variable;
 
 use App\Mail\JointRegis;
 
@@ -46,16 +47,28 @@ class DualDegreeController extends Controller
             return redirect()->back();
         }
 
-        if(!intval($request->gpa) > 3)
+        $gpa_teknik = Variable::where('name', 'gpa_teknik_dd')->first();
+        $gpa_non    = Variable::where('name', 'gpa_non_dd')->first();
+
+        if(!(intval($request->gpa) > $gpa_teknik->score && Auth::guard('student')->user()->school_id > 1 && Auth::guard('student')->user()->school_id < 5) && !($request->gpa > $gpa_non->score && (Auth::guard('student')->user()->school_id == 1 || Auth::guard('student')->user()->school_id > 4)))
         {
             session(['alert' => 'errorGPA', 'data' => 'Pass Exp']);
 
             return redirect()->back();
         }
 
-        if(intval($request->toefl) < 6)
+        if($request->eng_type == 'IBT Toefl')
         {
-            session(['alert' => 'errorToefl', 'data' => 'Pass Exp']);
+            $eng_score_min = Variable::where('name', 'ibt_dd')->first();
+        }
+        elseif($request->eng_type == 'IELTS')
+        {
+            $eng_score_min = Variable::where('name', 'ielts_dd')->first();
+        }
+
+        if(intval($request->eng_score) < $eng_score_min->score)
+        {
+            session(['alert' => 'errorToefl', 'data' => 'English Score']);
 
             return redirect()->back();
         }
@@ -115,7 +128,6 @@ class DualDegreeController extends Controller
 
     public function update(DualDegreeRequest $request)
     {
-        // dd(Carbon::createFromFormat('Y-m-d', $request->passport_expiry_date));die;
         $data = $request->input();
 
         $univ = UniversityJoint::where('name', $request->university_joint)->first();
@@ -127,16 +139,28 @@ class DualDegreeController extends Controller
             return redirect()->back();
         }
 
-        if(!intval($request->gpa) > 3)
+        $gpa_teknik = Variable::where('name', 'gpa_teknik_dd')->first();
+        $gpa_non    = Variable::where('name', 'gpa_non_dd')->first();
+
+        if(!(intval($request->gpa) > $gpa_teknik->score && Auth::guard('student')->user()->school_id > 1 && Auth::guard('student')->user()->school_id < 5) && !($request->gpa > $gpa_non->score && (Auth::guard('student')->user()->school_id == 1 || Auth::guard('student')->user()->school_id > 4)))
         {
             session(['alert' => 'errorGPA', 'data' => 'Pass Exp']);
 
             return redirect()->back();
         }
 
-        if(intval($request->toefl) < 6)
+        if($request->eng_type == 'IBT Toefl')
         {
-            session(['alert' => 'errorToefl', 'data' => 'Pass Exp']);
+            $eng_score_min = Variable::where('name', 'ibt_dd')->first();
+        }
+        elseif($request->eng_type == 'IELTS')
+        {
+            $eng_score_min = Variable::where('name', 'ielts_dd')->first();
+        }
+
+        if(intval($request->eng_score) < $eng_score_min->score)
+        {
+            session(['alert' => 'errorToefl', 'data' => 'English Score']);
 
             return redirect()->back();
         }

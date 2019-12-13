@@ -10,7 +10,7 @@ class Inventory extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'name', 'showOnInvBookingMenu', 'isBooked', 'isConditionGood'
+        'name', 'showOnInvBookingMenu', 'isConditionGood', 'comment', 'stock'
     ];
 
     protected $hidden = [
@@ -43,5 +43,12 @@ class Inventory extends Model
     public function getCondition()
     {
         return $this->isConditionGood == 0 ? 'Bad' : 'Good';
+    }
+
+    public function recentStock()
+    {
+        $total = InventoryBooking::where('inventory_id', $this->id)->where('status', 1)->count();
+
+        return $this->stock - $total;
     }
 }

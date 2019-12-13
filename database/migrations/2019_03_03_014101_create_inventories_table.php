@@ -20,12 +20,16 @@ class CreateInventoriesTable extends Migration
             $table->boolean('showOnInvBookingMenu')
                   ->nullable()
                   ->default(0);
-            $table->boolean('isBooked')
-                  ->nullable()
-                  ->default(0);
+            // $table->boolean('isBooked')
+            //       ->nullable()
+            //       ->default(0);
             $table->boolean('isConditionGood')
                   ->nullable()
                   ->default(1);
+            $table->string('comment')
+                  ->nullable();
+            $table->integer('stock')
+                  ->nullable();
 
             $table->timestamps();
             $table->softDeletes();

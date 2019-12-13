@@ -39,6 +39,6 @@ class TempScheduleChange extends Mailable
      */
     public function build()
     {
-        return $this->view('email.temp-schedule-change');
+        return $this->subject('[ICAO] Temporary Schedule Application')->view('email.temp-schedule-change');
     }
 }

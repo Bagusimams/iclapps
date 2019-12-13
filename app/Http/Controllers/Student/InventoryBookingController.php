@@ -83,11 +83,6 @@ class InventoryBookingController extends Controller
     public function delete($booking_id)
     {
         $booking = InventoryBooking::find($booking_id);
-
-        $data_inventory['isBooked'] = 0;
-        $inventory = Inventory::find($booking->inventory_id);
-        $inventory->update($data_inventory);
-
         $booking->delete();
 
         session(['alert' => 'delete', 'data' => 'Inventory booking']);

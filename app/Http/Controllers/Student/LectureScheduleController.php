@@ -38,18 +38,13 @@ class LectureScheduleController extends Controller
 
         if($mode == 'all')
         {
-            if($pagination == 'all') $courses = LectureSchedule::where('role', 'Student')->where('role_id', Auth::guard('student')->user()->id)->where('status', '>', 1)->get();
-            else $courses = LectureSchedule::where('role', 'Student')->where('role_id', Auth::guard('student')->user()->id)->where('status', '>', 1)->paginate($pagination);
+            if($pagination == 'all') $courses = LectureSchedule::where('role', 'Student')->where('role_id', Auth::guard('student')->user()->id)->get();
+            else $courses = LectureSchedule::where('role', 'Student')->where('role_id', Auth::guard('student')->user()->id)->paginate($pagination);
         }
-        elseif($mode == 'per') 
+        else
         {
-            if($pagination == 'all') $courses = LectureSchedule::where('role', 'Student')->where('role_id', Auth::guard('student')->user()->id)->where('status', 3)->get();
-            else $courses = LectureSchedule::where('role', 'Student')->where('role_id', Auth::guard('student')->user()->id)->where('status', 3)->paginate($pagination);
-        }
-        elseif($mode == 'temp')
-        {
-            if($pagination == 'all') $courses = LectureSchedule::where('role', 'Student')->where('role_id', Auth::guard('student')->user()->id)->where('status', 4)->get();
-            else $courses = LectureSchedule::where('role', 'Student')->where('role_id', Auth::guard('student')->user()->id)->where('status', 4)->paginate($pagination);
+            if($pagination == 'all') $courses = LectureSchedule::where('role', 'Student')->where('role_id', Auth::guard('student')->user()->id)->where('mode', $mode)->get();
+            else $courses = LectureSchedule::where('role', 'Student')->where('role_id', Auth::guard('student')->user()->id)->where('mode', $mode)->paginate($pagination);
         }
 
         return view('student.lecture-schedule.index', compact('courses', 'type', 'color', 'data', 'pagination'));
@@ -57,6 +52,21 @@ class LectureScheduleController extends Controller
 
     public function getAvailableRoom($start_time, $end_time, $day)
     {
+        $rooms = getRoomsAvailableByDay($day, $start_time, $end_time);
+        
+        $result = '';
+        foreach ($rooms as $key => $value) {
+            $result .= '<option value="' . $key . '">' . $value . '</option>';
+        }
+
+        return response()->json([
+            "rooms"  => $result,
+        ], 200);
+    }
+
+    public function getAvailableRoomByDate($start_time, $end_time, $date)
+    {
+        $day = date('l', strtotime($date));
         $rooms = getRoomsAvailableByDay($day, $start_time, $end_time);
         
         $result = '';

@@ -39,6 +39,6 @@ class RejectStudentExchange extends Mailable
      */
     public function build()
     {
-        return $this->view('email.reject-student-exchange');
+        return $this->subject('[ICAO] Student Exchange - Notification of Decision')->view('email.reject-student-exchange');
     }
 }

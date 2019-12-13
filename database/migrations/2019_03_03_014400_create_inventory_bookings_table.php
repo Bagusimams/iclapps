@@ -26,10 +26,12 @@ class CreateInventoryBookingsTable extends Migration
             $table->integer('inventory_id')
                   ->unsigned()
                   ->nullable();
-            $table->integer('room_id')
+            $table->integer('status')
                   ->unsigned()
+                  ->default(0)
+                  ->comment('0 -> not checked, 1 -> rented, 2 -> returned')
                   ->nullable();
-            $table->string('event')
+            $table->string('purpose')
                   ->nullable();
             $table->integer('isApproved')
                   ->nullable()
@@ -44,11 +46,6 @@ class CreateInventoryBookingsTable extends Migration
             $table->foreign('inventory_id')
                   ->references('id')
                   ->on('inventories')
-                  ->onDelete('cascade');
-
-            $table->foreign('room_id')
-                  ->references('id')
-                  ->on('rooms')
                   ->onDelete('cascade');
         });
     }

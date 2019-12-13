@@ -13,6 +13,7 @@ return [
     |
     */
 
+    'api_url' => env('API_URL', 'https://dev-gateway.telkomuniversity.ac.id'),
     'name' => env('APP_NAME', 'Program I-CLAPPS Tel-U'),
 
     /*

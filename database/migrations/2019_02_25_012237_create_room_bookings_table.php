@@ -21,10 +21,6 @@ class CreateRoomBookingsTable extends Migration
                   ->nullable();
             $table->string('name')
                   ->nullable();
-            $table->string('nim/nip')
-                  ->nullable();
-            $table->string('major/division')
-                  ->nullable();
             $table->string('phone_number')
                   ->nullable();
             $table->string('email')
@@ -35,22 +31,15 @@ class CreateRoomBookingsTable extends Migration
                   ->nullable();
             $table->string('end_time')
                   ->nullable();
-            $table->string('activity_name')
-                  ->nullable();
-            $table->text('activity_detail')
-                  ->nullable();
-            $table->string('total_participant')
+            $table->string('purpose')
                   ->nullable();
             $table->integer('room_id')
                   ->unsigned()
                   ->nullable();
-            $table->string('rundown_file')
-                  ->nullable();
-            $table->boolean('isApproved')
+            $table->integer('isApproved')
                   ->nullable()
+                  ->comment('0 -> not checked, 1 -> approved, 2 -> rejected')
                   ->default(0);
-            $table->string('notes')
-                  ->nullable();
 
             $table->timestamps();
             $table->softDeletes();

@@ -45,14 +45,6 @@ class LectureSchedule extends Model
             case '2':
                 return 'Rejected';
                 break;
-
-            case '3':
-                return 'Permanent';
-                break;
-
-            case '4':
-                return 'Temporary';
-                break;
         }
     }
 

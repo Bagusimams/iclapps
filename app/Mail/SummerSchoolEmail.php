@@ -39,6 +39,6 @@ class SummerSchoolEmail extends Mailable
      */
     public function build()
     {
-        return $this->view('email.summer-regis');
+        return $this->subject('[ICAO] Summer School Application')->view('email.summer-regis');
     }
 }

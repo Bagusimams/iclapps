@@ -39,6 +39,6 @@ class JointRegis extends Mailable
      */
     public function build()
     {
-        return $this->view('email.joint-regis');
+        return $this->subject('[ICAO] Dual Degree Application')->view('email.joint-regis');
     }
 }

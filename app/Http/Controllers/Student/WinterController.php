@@ -13,6 +13,7 @@ use App\Http\Requests\WinterRequest;
 use App\Models\Student;
 use App\Models\WinterSchool;
 use App\Models\WinterSchoolForm;
+use App\Models\Variable;
 
 use App\Mail\WinterSchoolEmail;
 
@@ -46,19 +47,15 @@ class WinterController extends Controller
             return redirect()->back();
         }
 
-        // if(!(intval($request->gpa) > 2.75 && Auth::guard('student')->user()->school_id > 1 && Auth::guard('student')->user()->school_id < 5) && !($request->gpa > 3 && (Auth::guard('student')->user()->school_id == 1 || Auth::guard('student')->user()->school_id > 4)))
-        // {
-        //     session(['alert' => 'errorGPA', 'data' => 'Pass Exp']);
+        $gpa_teknik = Variable::where('name', 'gpa_teknik_winter')->first();
+        $gpa_non    = Variable::where('name', 'gpa_non_winter')->first();
 
-        //     return redirect()->back();
-        // }
+        if(!(intval($request->gpa) > $gpa_teknik->score && Auth::guard('student')->user()->school_id > 1 && Auth::guard('student')->user()->school_id < 5) && !($request->gpa > $gpa_non->score && (Auth::guard('student')->user()->school_id == 1 || Auth::guard('student')->user()->school_id > 4)))
+        {
+            session(['alert' => 'errorGPA', 'data' => 'Pass Exp']);
 
-        // if(intval($request->toefl) < 500)
-        // {
-        //     session(['alert' => 'errorToefl', 'data' => 'Pass Exp']);
-
-        //     return redirect()->back();
-        // }
+            return redirect()->back();
+        }
 
         $data['student_id'] = Auth::guard('student')->user()->id;
         $data['school_id'] = Auth::guard('student')->user()->school_id;
@@ -115,7 +112,6 @@ class WinterController extends Controller
 
     public function update(WinterRequest $request)
     {
-        // dd(Carbon::createFromFormat('Y-m-d', $request->passport_expiry_date));die;
         $data = $request->input();
 
         $univ = WinterSchool::where('name', $request->university_exchange)->first();
@@ -127,19 +123,15 @@ class WinterController extends Controller
             return redirect()->back();
         }
 
-        // if(!(intval($request->gpa) > 2.75 && Auth::guard('student')->user()->school_id > 1 && Auth::guard('student')->user()->school_id < 5) && !($request->gpa > 3 && (Auth::guard('student')->user()->school_id == 1 || Auth::guard('student')->user()->school_id > 4)))
-        // {
-        //     session(['alert' => 'errorGPA', 'data' => 'Pass Exp']);
+        $gpa_teknik = Variable::where('name', 'gpa_teknik_winter')->first();
+        $gpa_non    = Variable::where('name', 'gpa_non_winter')->first();
 
-        //     return redirect()->back();
-        // }
+        if(!(intval($request->gpa) > $gpa_teknik->score && Auth::guard('student')->user()->school_id > 1 && Auth::guard('student')->user()->school_id < 5) && !($request->gpa > $gpa_non->score && (Auth::guard('student')->user()->school_id == 1 || Auth::guard('student')->user()->school_id > 4)))
+        {
+            session(['alert' => 'errorGPA', 'data' => 'Pass Exp']);
 
-        // if(intval($request->toefl) < 500)
-        // {
-        //     session(['alert' => 'errorToefl', 'data' => 'Pass Exp']);
-
-        //     return redirect()->back();
-        // }
+            return redirect()->back();
+        }
 
         if($request->hasFile('file_admission_letter')) 
         {

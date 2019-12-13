@@ -10,6 +10,7 @@ use Mail;
 use App\Http\Requests\ComplaintRequest;
 
 use App\Models\Complaint;
+use App\Models\Student;
 
 use App\Mail\ComplaintEmail;
 

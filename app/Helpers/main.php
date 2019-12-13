@@ -57,8 +57,13 @@
                     $color = 'danger';
                     break;
 
-                case 'errorKlinik':
-                    $type = 'errorKlinik';
+                case 'notUser':
+                    $type = 'notUser';
+                    $color = 'danger';
+                    break;
+
+                case 'invalidCredential':
+                    $type = 'invalidCredential';
                     $color = 'danger';
                     break;
             }
@@ -76,11 +81,47 @@
         return $pagination;
     }
 
+    function getSemApplied()
+    {
+        $sem = ['Spring' => 'Spring', 'Fall' => 'Fall', 'Short' => 'Short'];
+        
+        return $sem;
+    }
+
+    function getExcEng()
+    {
+        $types = ['EPRT' => 'EPRT', 'ITP Toefl' => 'ITP Toefl'];
+        
+        return $types;
+    }
+
+    function getJointEng()
+    {
+        $types = ['IBT Toefl' => 'IBT Toefl', 'IELTS' => 'IELTS'];
+        
+        return $types;
+    }
+
+    function getWinterEng()
+    {
+        $types = [];
+        
+        return $types;
+    }
+
+    function getSummerEng()
+    {
+        $types = [];
+        
+        return $types;
+    }
+
     function getInventoriesAvailable()
     {
         $inventories = [null => 'Choose Inventory'];
-        foreach (Inventory::where('showOnInvBookingMenu', 1)->where('isBooked', 0)->get() as $data) {
-            $inventories = array_add($inventories, $data->id, $data->name);
+        foreach (Inventory::where('showOnInvBookingMenu', 1)->get() as $data) {
+            if($data->recentStock() > 0)
+                $inventories = array_add($inventories, $data->id, $data->name . ' (' . $data->recentStock() . ')');
         }
         return $inventories;
     }
@@ -212,5 +253,162 @@
             $universities = array_add($universities, $data->id, $data->name);
         }
         return $universities;
+    }
+
+    function callGetGuzzle($url, $token = null)
+    {
+        if($token == null)
+        {
+            $header = [
+                    // 'auth' => [
+                    //     'icao', '!Ca0Telu2019'
+                    // ],
+                    // 'Secret' => config('app.secret')
+                ];
+        }
+        else
+        {
+            $header = [
+                    // 'auth' => [
+                    //     'icao', '!Ca0Telu2019'
+                    // ],
+                    // 'Secret' => config('app.secret'),
+                    'Authorization' => 'Bearer ' . $token                
+                ];
+        }
+
+        $client = new \GuzzleHttp\Client([
+                'headers' => $header
+            ]);
+        try {
+            $response = $client->get(config('app.api_url') . $url);
+            $response = json_decode($response->getBody()->getContents());
+            
+            return ["status" => "ok", "data" => $response];
+        } 
+        catch (\GuzzleHttp\Exception\RequestException $e) {
+            return ["status" => "error", "data" => $e->getMessage(), "code" => $e->getCode()];
+        }
+    }
+
+    function callPostGuzzle($url, $token = null, $data = null)
+    {
+        // dd(config('app.api_url') . $url);die;
+        if($token == null)
+        {
+            $header = [
+                    // 'Authorization' => [
+                    //     'icao', '!Ca0Telu2019'
+                    // ],
+                    'Content-Type' => 'application/json',
+                    // 'Secret' => config('app.secret')
+                ];
+        }
+        else
+        {
+            $header = [
+                    // 'Authorization' => [
+                    //     'icao', '!Ca0Telu2019'
+                    // ],
+                    'Content-Type' => 'application/json',
+                    // 'Secret' => config('app.secret'),
+                    // 'Authorization' => 'Bearer ' . $token                
+                ];
+        }
+        // dd(config('app.api_url') . $url);die;
+        $client = new \GuzzleHttp\Client();
+        try {
+            $response = $client->request('POST', config('app.api_url') . $url, [
+                'headers' => $header,
+                'json' => $data
+            ]);
+
+            $response = json_decode($response->getBody()->getContents());
+            // dd($response);die;
+            return ["status" => "ok", "data" => $response];
+        } 
+        catch (\GuzzleHttp\Exception\RequestException $e) {
+            return ["status" => "error", "data" => $e->getMessage(), "code" => $e->getCode()];
+        }
+    }
+
+    function callPutGuzzle($url, $token = null, $data = null)
+    {
+        if($token == null)
+        {
+            $header = [
+                    // 'auth' => [
+                    //     'icao', '!Ca0Telu2019'
+                    // ],
+                    'Content-Type' => 'application/json',
+                    // 'Secret' => config('app.secret')
+                ];
+        }
+        else
+        {
+            $header = [
+                    // 'auth' => [
+                    //     'icao', '!Ca0Telu2019'
+                    // ],
+                    'Content-Type' => 'application/json',
+                    // 'Secret' => config('app.secret'),
+                    'Authorization' => 'Bearer ' . $token                
+                ];
+        }
+
+        $client = new \GuzzleHttp\Client();
+        try {
+            $response = $client->request('PUT', config('app.api_url') . $url, [
+                'headers' => $header,
+                'json' => $data
+            ]);
+
+            $response = json_decode($response->getBody()->getContents());
+            
+            return ["status" => "ok", "data" => $response->content];
+        } 
+        catch (\GuzzleHttp\Exception\RequestException $e) {
+            return ["status" => "error", "data" => $e->getMessage(), "code" => $e->getCode()];
+        }
+    }
+
+    function callDeleteGuzzle($url, $token = null, $data = null)
+    {
+        if($token == null)
+        {
+            $header = [
+                    // 'auth' => [
+                    //     'icao', '!Ca0Telu2019'
+                    // ],
+                    'Content-Type' => 'application/json',
+                    // 'Secret' => config('app.secret')
+                ];
+        }
+        else
+        {
+            $header = [
+                    // 'auth' => [
+                    //     'icao', '!Ca0Telu2019'
+                    // ],
+                    'Content-Type' => 'application/json',
+                    // 'Secret' => config('app.secret'),
+                    'Authorization' => 'Bearer ' . $token                
+                ];
+        }
+
+        $client = new \GuzzleHttp\Client();
+        try {
+            $response = $client->request('DELETE', config('app.api_url') . $url, [
+                'headers' => $header,
+                'json' => $data
+            ]);
+
+            $response = json_decode($response->getBody()->getContents());
+            
+            return ["status" => "ok", "data" => $response->content];
+        } 
+        catch (\GuzzleHttp\Exception\RequestException $e) {
+            return ["status" => "error", "data" => $e->getMessage(), "code" => $e->getCode()];
+        }
     }
 ?>

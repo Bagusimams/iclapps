@@ -19,12 +19,12 @@
 
 <section class="content-header">
   <h1>
-    Exam Proctors List
+    Proctors List
   </h1>
   <a href="{{ url($role. '/') }}" class="no-link"><i class="fa fa-arrow-circle-o-left tosca"></i> Back</a>
   <ol class="breadcrumb">
     <li><a href="{{ url($role. '/') }}">Home</a></li>
-    <li class="active">Exam Proctors List</li>
+    <li class="active">Proctors List</li>
   </ol>
 </section>
 

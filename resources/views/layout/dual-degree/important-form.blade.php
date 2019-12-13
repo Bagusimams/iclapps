@@ -53,12 +53,23 @@
         </div>
 
         <div class="form-group">
-            {!! Form::label('toefl', 'Toefl', array('class' => 'col-sm-2 control-label')) !!}
+            {!! Form::label('eng_type', 'English Certificate Type', array('class' => 'col-sm-2 control-label')) !!}
+            <div class="col-sm-3">
+                @if($SubmitButtonText != 'Tambah')
+                    {!! Form::text('eng_type', null, array('class' => 'form-control', 'readonly' => 'readonly')) !!}
+                @else
+                    {!! Form::select('eng_type', getJointEng(), null, ['class' => 'form-control select2', 'style'=>'width: 100%']) !!}
+                @endif
+            </div>
+        </div>
+
+        <div class="form-group">
+            {!! Form::label('eng_score', 'English Certificate Score', array('class' => 'col-sm-2 control-label')) !!}
             <div class="col-sm-3">
                 @if($SubmitButtonText == 'View')
-                    {!! Form::text('toefl', null, array('class' => 'form-control', 'readonly' => 'readonly')) !!}
+                    {!! Form::text('eng_score', null, array('class' => 'form-control', 'readonly' => 'readonly')) !!}
                 @else
-                    {!! Form::text('toefl', null, array('class' => 'form-control')) !!}
+                    {!! Form::text('eng_score', null, array('class' => 'form-control')) !!}
                 @endif
             </div>
         </div>

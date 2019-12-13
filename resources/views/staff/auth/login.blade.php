@@ -36,10 +36,10 @@
                             {{ Form::open(array('route' => 'staff.login')) }}   
                                 <div class="form-group">
                                     <div class="col-lg-offset-5 col-lg-7">
-                                        {!! Form::label('email', 'Username', array('class' => 'col-sm-2 control-label')) !!}
+                                        {!! Form::label('username', 'Username', array('class' => 'col-sm-2 control-label')) !!}
                                     </div>                                  
                                     <div class="col-lg-12">
-                                        {{ Form::text('email', null, array('class' => 'form-input', 'autocomplete' => 'off')) }}
+                                        {{ Form::text('username', null, array('class' => 'form-input', 'autocomplete' => 'off')) }}
                                     </div>
                                 </div>    
                                 <div class="form-group">

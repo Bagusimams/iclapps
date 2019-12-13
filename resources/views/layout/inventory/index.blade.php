@@ -32,7 +32,9 @@
   <div class="box">
     <div class="box-body">
       <div class="col-sm-8">
-          <a href="{{ url('/' . $role . '/inventory/create') }}" class="btn btn-success col-sm-4">Add Inventory</a>
+          @if(Auth::guard('staff')->user())
+            <a href="{{ url('/' . $role . '/inventory/create') }}" class="btn btn-success col-sm-4">Add Inventory</a>
+          @endif
           {!! Form::label('show', 'Show', array('class' => 'col-sm-1 control-label')) !!}
           <div class="col-sm-2">
             {!! Form::select('show', getPagination(), $pagination, ['class' => 'form-control', 'style'=>'width: 100%', 'id' => 'show', 'onchange' => 'advanceSearch()']) !!}
@@ -45,9 +47,10 @@
         <thead>
             <tr>
               <th>Name</th>
-              <th>Available to be booked</th>
-              <th>Condition</th>
+              <th>Stock</th>
+              <th>Recent Stock</th>
               @if(Auth::guard('staff')->user())
+                <th>Condition</th>
                 <th>Edit</th>
                 <th>Delete</th>
               @endif
@@ -57,9 +60,10 @@
           @foreach($inventories as $inventory)
             <tr>
               <td>{{ $inventory->name }}</td>
-              <td>{{ $inventory->isAvailable() }}</td>
-              <td>{{ $inventory->getCondition() }}</td>
+              <td>{{ $inventory->stock }}</td>
+              <td>{{ $inventory->recentStock() }}</td>
               @if(Auth::guard('staff')->user())
+                <td>{{ $inventory->getCondition() }}</td>
                 <td><a href="{{ url('/' . $role. '/inventory/' . $inventory->id . '/edit') }}"><i class="fa fa-pencil-square-o orange"></i></a></td>
                 <td>
                     <button type="button" class="no-btn" data-toggle="modal" data-target="#modal-danger-{{$inventory->id}}"><i class="fa fa-times red" aria-hidden="true"></i></button>

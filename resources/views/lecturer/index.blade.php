@@ -2,7 +2,8 @@
 
 @section('content')     
     <section class="content">
-      <h1><center>Welcome to ICAO Application<br>Telkom University</center></h1>
+      <img class="img" src="{{asset('logo.png')}}" style="width: 100%">
+      <h1><center>Welcome to I-CLAPPS<br>International Class Application System</center></h1>
     </section>
     
     @section('javascript-addon') 

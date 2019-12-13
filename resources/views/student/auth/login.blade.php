@@ -24,6 +24,7 @@
             <section class="content" style="position: relative; top: 20%;">
                 <div class="container">
                     <div class="row">
+                        @include('layout.alert-message')
                         <div class="col-lg-12 text-center">
                             <h2 class="section-heading title-content">Login Student</h2>
                             <hr class="light">

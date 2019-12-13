@@ -39,6 +39,6 @@ class WinterSchoolEmail extends Mailable
      */
     public function build()
     {
-        return $this->view('email.winter-regis');
+        return $this->subject('[ICAO] Winter School Application')->view('email.winter-regis');
     }
 }

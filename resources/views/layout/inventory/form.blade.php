@@ -12,8 +12,30 @@
         </div>
 
         <div class="form-group">
+            {!! Form::label('comment', 'Comment', array('class' => 'col-sm-2 control-label')) !!}
+            <div class="col-sm-3">
+                @if($SubmitButtonText == 'View')
+                    {!! Form::textarea('comment', null, array('class' => 'form-control', 'readonly' => 'readonly')) !!}
+                @else
+                    {!! Form::textarea('comment', null, array('class' => 'form-control')) !!}
+                @endif
+            </div>
+        </div>
+
+        <div class="form-group">
+            {!! Form::label('stock', 'Stock', array('class' => 'col-sm-2 control-label')) !!}
+            <div class="col-sm-3">
+                @if($SubmitButtonText == 'View')
+                    {!! Form::text('stock', null, array('class' => 'form-control', 'readonly' => 'readonly')) !!}
+                @else
+                    {!! Form::text('stock', null, array('class' => 'form-control')) !!}
+                @endif
+            </div>
+        </div>
+
+        <div class="form-group">
             {!! Form::label('showOnInvBookingMenu', 'Show on booking menu', array('class' => 'col-sm-2 control-label')) !!}
-            <div class="col-sm-8">
+            <div class="col-sm-3">
                 @if($SubmitButtonText == 'View')
                     @if($inventory->showOnInvBookingMenu == '1')
                         {!! Form::text('showOnInvBookingMenu', 'Show', array('class' => 'form-control', 'readonly' => 'readonly')) !!}
@@ -43,39 +65,8 @@
         </div>
 
         <div class="form-group">
-            {!! Form::label('isBooked', 'Status', array('class' => 'col-sm-2 control-label')) !!}
-            <div class="col-sm-8">
-                @if($SubmitButtonText == 'View')
-                    @if($inventory->isBooked == '1')
-                        {!! Form::text('isBooked', 'Booked', array('class' => 'form-control', 'readonly' => 'readonly')) !!}
-                    @else
-                        {!! Form::text('isBooked', 'Available', array('class' => 'form-control', 'readonly' => 'readonly')) !!}
-                    @endif
-                @elseif($SubmitButtonText == 'Edit')
-                    <label>
-                        <input type="radio" name="isBooked" class="flat-red" value="1" @if($inventory->isBooked == '1') checked @endif>
-                        Booked
-                    </label><br>
-                    <label>
-                        <input type="radio" name="isBooked" class="flat-red" value="0" @if($inventory->isBooked == '0') checked @endif>
-                        Available
-                    </label>
-                @else
-                    <label>
-                        <input type="radio" name="isBooked" class="flat-red" value="1">
-                        Booked
-                    </label><br>
-                    <label>
-                        <input type="radio" name="isBooked" class="flat-red" value="0">
-                        Available
-                    </label>
-                @endif
-            </div>
-        </div>
-
-        <div class="form-group">
             {!! Form::label('isConditionGood', 'Condition', array('class' => 'col-sm-2 control-label')) !!}
-            <div class="col-sm-8">
+            <div class="col-sm-3">
                 @if($SubmitButtonText == 'View')
                     @if($inventory->isConditionGood == '1')
                         {!! Form::text('isConditionGood', 'Good', array('class' => 'form-control', 'readonly' => 'readonly')) !!}

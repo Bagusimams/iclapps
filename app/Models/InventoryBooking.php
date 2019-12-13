@@ -10,7 +10,7 @@ class InventoryBooking extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'role', 'role_id', 'name', 'phone_number', 'inventory_id', 'room_id', 'event', 'isApproved', 'notes'
+        'role', 'role_id', 'name', 'phone_number', 'inventory_id', 'status', 'purpose', 'isApproved', 'notes'
     ];
 
     protected $hidden = [
@@ -20,6 +20,16 @@ class InventoryBooking extends Model
     protected $dates =[
         'deleted_at',
     ];
+
+    public function invStatus()
+    {
+        if($this->status == 0)
+            return 'On progress';
+        elseif($this->status == 1) 
+            return 'Rented';
+        else
+            return 'Returned';
+    }
 
     public function isApproved()
     {
@@ -34,10 +44,5 @@ class InventoryBooking extends Model
     public function inventory()
     {
         return $this->belongsTo('App\Models\Inventory');
-    }
-
-    public function room()
-    {
-        return $this->belongsTo('App\Models\Room');
     }
 }

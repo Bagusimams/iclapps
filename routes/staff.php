@@ -4,11 +4,12 @@ Route::group(['prefix' => 'inventory'], function () {
 		Route::get('/create', 'Staff\InventoryBookingController@create');
 		Route::post('/create', 'Staff\InventoryBookingController@store')->name('inventory.booking.store');
 		Route::get('/{pagination}', 'Staff\InventoryBookingController@index');
-		Route::get('/{inventory_id}/detail', 'Staff\InventoryBookingController@detail');
-		Route::get('/{inventory_id}/edit', 'Staff\InventoryBookingController@edit');
-		Route::put('/{inventory_id}/edit', 'Staff\InventoryBookingController@update')->name('inventory.booking.update');
-		Route::put('/{inventory_id}/change/{status}', 'Staff\InventoryBookingController@changeStatus')->name('inventory.change');
-		Route::delete('/{inventory_id}/delete', 'Staff\InventoryBookingController@delete')->name('inventory.booking.delete');
+		Route::get('/{booking_id}/detail', 'Staff\InventoryBookingController@detail');
+		Route::get('/{booking_id}/edit', 'Staff\InventoryBookingController@edit');
+		Route::put('/{booking_id}/edit', 'Staff\InventoryBookingController@update')->name('inventory.booking.update');
+		Route::get('/{booking_id}/change/{status}', 'Staff\InventoryBookingController@changeStatus');
+		Route::get('/{booking_id}/item/{status}', 'Staff\InventoryBookingController@changeItemStatus');
+		Route::delete('/{booking_id}/delete', 'Staff\InventoryBookingController@delete')->name('inventory.booking.delete');
 	});
 
 	Route::get('/create', 'Staff\InventoryController@create');
@@ -54,7 +55,7 @@ Route::group(['prefix' => 'complaint'], function () {
 
 Route::group(['prefix' => 'course'], function () {
 	Route::get('/getAvailableRoom/{day}/{start_time}/{end_time}', 'Staff\LectureScheduleController@getAvailableRoom');
-	Route::get('/getAvailableRoomByDate/{day}/{start_time}/{end_time}', 'Staff\LectureScheduleController@getAvailableRoomByDate');
+	Route::get('/getAvailableRoomByDate/{start_time}/{end_time}/{date}', 'Staff\LectureScheduleController@getAvailableRoomByDate');
 	Route::get('/create/{mode}/{old_id}', 'Staff\LectureScheduleController@create');
 	Route::post('/create/{mode}/{old_id}', 'Staff\LectureScheduleController@store')->name('course.store');
 	Route::get('/{pagination}', 'Staff\LectureScheduleController@index');
@@ -81,6 +82,8 @@ Route::group(['prefix' => 'student-exchange'], function () {
 	Route::get('/create', 'Staff\StudentExchangeController@create');
 	Route::post('/create', 'Staff\StudentExchangeController@store')->name('student-exchange.store');
 	Route::get('/{university_id}/{status}/{pagination}', 'Staff\StudentExchangeController@index');
+	Route::get('/{university_id}/edit', 'Staff\StudentExchangeController@edit');
+	Route::put('/{university_id}/edit', 'Staff\StudentExchangeController@update')->name('exchange.update');
 	Route::get('/{university_id}/upload', 'Staff\StudentExchangeController@upload');
 	Route::put('/{university_id}/upload', 'Staff\StudentExchangeController@updateUpload')->name('student-exchange.upload');
 	Route::put('/{university_id}/assign', 'Staff\StudentExchangeController@assignLecturer')->name('student-exchange.assign');
@@ -180,4 +183,29 @@ Route::group(['prefix' => 'winter-school'], function () {
 	Route::get('/{university_id}/edit', 'Staff\WinterSchoolController@edit');
 	Route::put('/{university_id}/edit', 'Staff\WinterSchoolController@update')->name('winter-school.update');
 	Route::delete('/{university_id}/delete', 'Staff\WinterSchoolController@delete')->name('winter-school.delete');
+});
+
+Route::group(['prefix' => 'variable'], function () {
+	Route::get('/{pagination}', 'Staff\VariableController@index');
+	Route::get('/{variable_id}/detail', 'Staff\VariableController@detail');
+	Route::get('/{variable_id}/edit', 'Staff\VariableController@edit');
+	Route::put('/{variable_id}/edit', 'Staff\VariableController@update')->name('variable.update');
+});
+
+Route::group(['prefix' => 'internship'], function () {
+	Route::get('/create', 'Staff\InternshipController@create');
+	Route::post('/create', 'Staff\InternshipController@store')->name('internship.store');
+	Route::get('/{pagination}', 'Staff\InternshipController@index');
+
+	Route::group(['prefix' => '{internship_id}/applicant'], function () {
+		Route::get('/{pagination}', 'Staff\InternshipApplicantController@index');
+		Route::get('/{applicant_id}/detail', 'Staff\InternshipApplicantController@detail');
+		Route::get('/{applicant_id}/edit', 'Staff\InternshipApplicantController@edit');
+		Route::put('/{applicant_id}/edit', 'Staff\InternshipApplicantController@update')->name('variable.update');
+	});
+	Route::put('/{internship_id}/change/{status}', 'Staff\InternshipController@changeActive');
+	Route::get('/{internship_id}/detail', 'Staff\InternshipController@detail');
+	Route::get('/{internship_id}/edit', 'Staff\InternshipController@edit');
+	Route::put('/{internship_id}/edit', 'Staff\InternshipController@update')->name('internship.update');
+	Route::delete('/{internship_id}/delete', 'Staff\InternshipController@delete')->name('internship.delete');
 });

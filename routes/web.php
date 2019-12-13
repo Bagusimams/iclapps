@@ -16,7 +16,8 @@ Route::get('/', 'Student\MainController@index');
 Route::group(['prefix' => 'staff'], function () {
   Route::get('/', 'Staff\MainController@index');
   Route::get('/login', 'StaffAuth\LoginController@showLoginForm');
-  Route::post('/login', 'StaffAuth\LoginController@login')->name('staff.login');
+  // Route::post('/login', 'StaffAuth\LoginController@login')->name('staff.login');
+  Route::post('/login', 'Staff\LoginController@doLogin')->name('staff.login');
   Route::post('/logout', 'StaffAuth\LoginController@logout')->name('staff.logout');
 
   Route::get('/register', 'StaffAuth\RegisterController@showRegistrationForm')->name('register');
@@ -30,8 +31,9 @@ Route::group(['prefix' => 'staff'], function () {
 
 Route::group(['prefix' => 'lecturer'], function () {
   Route::get('/', 'Lecturer\MainController@index');
-  Route::get('/login', 'LecturerAuth\LoginController@showLoginForm')->name('lecturer.login');
-  Route::post('/login', 'LecturerAuth\LoginController@login');
+  Route::get('/login', 'LecturerAuth\LoginController@showLoginForm');
+  // Route::post('/login', 'LecturerAuth\LoginController@login');
+  Route::post('/login', 'Lecturer\LoginController@doLogin')->name('lecturer.login');
   Route::post('/logout', 'LecturerAuth\LoginController@logout')->name('lecturer.logout');
 
   Route::get('/register', 'LecturerAuth\RegisterController@showRegistrationForm')->name('register');
@@ -45,8 +47,9 @@ Route::group(['prefix' => 'lecturer'], function () {
 
 Route::group(['prefix' => 'student'], function () {
   Route::get('/', 'Student\MainController@index');
-  Route::get('/login', 'StudentAuth\LoginController@showLoginForm')->name('student.login');
-  Route::post('/login', 'StudentAuth\LoginController@login');
+  Route::get('/login', 'StudentAuth\LoginController@showLoginForm');
+  // Route::post('/login', 'StudentAuth\LoginController@login')->name('student.login');
+  Route::post('/login', 'Student\LoginController@doLogin')->name('student.login');
   Route::post('/logout', 'StudentAuth\LoginController@logout')->name('student.logout');
 
   Route::get('/register', 'StudentAuth\RegisterController@showRegistrationForm')->name('register');

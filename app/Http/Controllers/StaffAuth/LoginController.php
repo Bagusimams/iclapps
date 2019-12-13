@@ -51,7 +51,9 @@ class LoginController extends Controller
      */
     public function showLoginForm()
     {
-        return view('staff.auth.login');
+        [$type, $color, $data] = alert();
+
+        return view('staff.auth.login', compact('type', 'color', 'data'));
     }
 
     /**

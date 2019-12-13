@@ -51,8 +51,10 @@
               <th>Date</th>
               <th>Comment Type</th>
               <th @if(Auth::guard('student')->user() == null) colspan="2" style="text-align: center;" @endif>Status</th>
-              <th>Edit</th>
-              <th>Delete</th>
+              @if(Auth::guard('staff')->user())
+                <th>Edit</th>
+                <th>Delete</th>
+              @endif
             </tr>
         </thead>
         <tbody id="table-course">
@@ -84,16 +86,19 @@
                     </form>
                 </td>
               @endif
-              <td><a href="{{ url('/' . $role. '/complaint/' . $complaint->id . '/edit') }}"><i class="fa fa-pencil-square-o orange"></i></a></td>
-              <td>
-                  <button type="button" class="no-btn" data-toggle="modal" data-target="#modal-danger-{{$complaint->id}}"><i class="fa fa-times red" aria-hidden="true"></i></button>
+              @if(Auth::guard('staff')->user())
+                <td><a href="{{ url('/' . $role. '/complaint/' . $complaint->id . '/edit') }}"><i class="fa fa-pencil-square-o orange"></i></a></td>
+                <td>
+                    <button type="button" class="no-btn" data-toggle="modal" data-target="#modal-danger-{{$complaint->id}}"><i class="fa fa-times red" aria-hidden="true"></i></button>
 
-                  @include('layout.deleteModal', ['id' => $complaint->id, 'data' => 'complaint', 'formName' => 'delete-form-' . $complaint->id])
+                    @include('layout.deleteModal', ['id' => $complaint->id, 'data' => 'complaint', 'formName' => 'delete-form-' . $complaint->id])
 
-                  <form id="delete-form-{{$complaint->id}}" action="{{ url('/' . $role . '/complaint/' . $complaint->id . '/delete') }}" method="POST" style="display: none;">
-                      {{ csrf_field() }}
-                      {{ method_field('DELETE') }}
-                  </form></td>
+                    <form id="delete-form-{{$complaint->id}}" action="{{ url('/' . $role . '/complaint/' . $complaint->id . '/delete') }}" method="POST" style="display: none;">
+                        {{ csrf_field() }}
+                        {{ method_field('DELETE') }}
+                    </form>
+                </td>
+              @endif
             </tr>
           @endforeach
         </tbody>

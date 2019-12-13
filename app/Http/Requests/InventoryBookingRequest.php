@@ -29,7 +29,7 @@ class InventoryBookingRequest extends FormRequest
             // 'role_id'       => 'required',
             'name'          => 'required',
             'phone_number'  => 'required',
-            'event'         => 'required',
+            'purpose'       => 'required',
             // 'isApproved'    => 'required',
             // 'notes'         => 'required',
         ];
@@ -37,7 +37,6 @@ class InventoryBookingRequest extends FormRequest
         if ($request->method() == 'post') 
         {
             $rules = array_add($rules, 'inventory_id', 'required');
-            $rules = array_add($rules, 'room_id', 'required');
         } 
 
         return $rules;

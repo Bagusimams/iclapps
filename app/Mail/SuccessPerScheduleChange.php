@@ -39,6 +39,6 @@ class SuccessPerScheduleChange extends Mailable
      */
     public function build()
     {
-        return $this->view('email.success-per-schedule-change');
+        return $this->subject('[ICAO] Permanent Schedule Application - Notification of Decision')->view('email.success-per-schedule-change');
     }
 }

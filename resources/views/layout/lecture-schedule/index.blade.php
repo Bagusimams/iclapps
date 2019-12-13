@@ -50,11 +50,15 @@
               <th>Code</th>
               <th>Lecturer</th>
               <th>Class</th>
-              <th>Day</th>
+              <th>Day/Date</th>
               <th>Time</th>
               <th>Room</th>
               <th>Mode</th>
-              <th colspan="2" style="text-align: center;">Change Schedule</th>
+              @if(Auth::guard('student')->user() && Request::segment(3) != 'req')
+                <th colspan="2" style="text-align: center;">Change Schedule</th>
+              @else
+                <th>Status</th>
+              @endif
               @if(Auth::guard('staff')->user())
                 <th colspan="2" style="text-align: center;">Action</th>
                 <th>Edit</th>
@@ -69,12 +73,16 @@
               <td>{{ $course->code }}</td>
               <td>{{ $course->lecturer->name }}</td>
               <td>{{ $course->class }}</td>
-              <td>{{ $course->day }}</td>
+              <td>@if($course->day != null) {{ $course->day }} @else {{ $course->date }} @endif</td>
               <td>{{ $course->start_time . ' - ' . $course->end_time }}</td>
               <td>{{ $course->room->name }}</td>
               <td>{{ $course->convertMode() }}</td>
-              <td><a href="{{ url('/' . $role. '/course/create/per/' . $course->id) }}">Permanent</a></td>
-              <td><a href="{{ url('/' . $role. '/course/create/temp/' . $course->id) }}">Temporary</a></td>
+              @if(Auth::guard('student')->user() && Request::segment(3) != 'req')
+                <td><a href="{{ url('/' . $role. '/course/create/per/' . $course->id) }}">Permanent</a></td>
+                <td><a href="{{ url('/' . $role. '/course/create/temp/' . $course->id) }}">Temporary</a></td>
+              @else
+                <td>{{ $course->convertStatus() }}</td>
+              @endif
               @if(Auth::guard('staff')->user())
                 <td>
                     <button type="button" class="no-btn" onclick="event.preventDefault(); document.getElementById('accept-{{$course->id}}').submit();"><i class="fa fa-check @if($course->status == 1) tosca @else gray @endif" aria-hidden="true"></i></button>

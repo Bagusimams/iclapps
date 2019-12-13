@@ -39,6 +39,6 @@ class AcceptDualDegree extends Mailable
      */
     public function build()
     {
-        return $this->view('email.accept-dual-degree');
+        return $this->subject('[ICAO] Dual Degree - Notification of Decision')->view('email.accept-dual-degree');
     }
 }

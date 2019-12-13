@@ -11,7 +11,8 @@ Route::group(['prefix' => 'exam-supervisor'], function () {
 });
 
 Route::group(['prefix' => 'course'], function () {
-	Route::get('/getAvailableRoom/{day}/{start_time}/{end_time}', 'Student\LectureScheduleController@getAvailableRoom');
+	Route::get('/getAvailableRoom/{start_time}/{end_time}/{day}', 'Student\LectureScheduleController@getAvailableRoom');
+	Route::get('/getAvailableRoomByDate/{start_time}/{end_time}/{date}', 'Student\LectureScheduleController@getAvailableRoomByDate');
 	Route::get('/create/{mode}/{old_id}', 'Student\LectureScheduleController@create');
 	Route::post('/create/{mode}/{old_id}', 'Student\LectureScheduleController@store')->name('course.store');
 	Route::get('/{pagination}', 'Student\LectureScheduleController@index');
@@ -77,12 +78,27 @@ Route::group(['prefix' => 'inventory'], function () {
 		Route::get('/create', 'Student\InventoryBookingController@create');
 		Route::post('/create', 'Student\InventoryBookingController@store')->name('inventory.booking.store');
 		Route::get('/{pagination}', 'Student\InventoryBookingController@index');
-		Route::get('/{inventory_id}/detail', 'Student\InventoryBookingController@detail');
-		Route::get('/{inventory_id}/edit', 'Student\InventoryBookingController@edit');
-		Route::put('/{inventory_id}/edit', 'Student\InventoryBookingController@update')->name('inventory.booking.update');
-		Route::delete('/{inventory_id}/delete', 'Student\InventoryBookingController@delete')->name('inventory.booking.delete');
+		Route::get('/{booking_id}/detail', 'Student\InventoryBookingController@detail');
+		Route::get('/{booking_id}/edit', 'Student\InventoryBookingController@edit');
+		Route::put('/{booking_id}/edit', 'Student\InventoryBookingController@update')->name('inventory.booking.update');
+		Route::delete('/{booking_id}/delete', 'Student\InventoryBookingController@delete')->name('inventory.booking.delete');
 	});
 
 	Route::get('/{pagination}', 'Student\InventoryController@index');
 	Route::get('/{inventory_id}/detail', 'Student\InventoryController@detail');
+});
+
+Route::group(['prefix' => 'room'], function () {
+	Route::group(['prefix' => 'booking'], function () {
+		Route::get('/create', 'Student\RoomBookingController@create');
+		Route::post('/create', 'Student\RoomBookingController@store')->name('room.booking.store');
+		Route::get('/{pagination}', 'Student\RoomBookingController@index');
+		Route::get('/{booking_id}/detail', 'Student\RoomBookingController@detail');
+		Route::get('/{booking_id}/edit', 'Student\RoomBookingController@edit');
+		Route::put('/{booking_id}/edit', 'Student\RoomBookingController@update')->name('room.booking.update');
+		Route::delete('/{booking_id}/delete', 'Student\RoomBookingController@delete')->name('room.booking.delete');
+	});
+
+	Route::get('/{pagination}', 'Student\RoomController@index');
+	Route::get('/{room_id}/detail', 'Student\RoomController@detail');
 });

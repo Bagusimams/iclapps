@@ -45,9 +45,9 @@ class RoomBookingController extends Controller
 
         if($booking->isApproved != 2)
         {
-            $data_inventory['isBooked'] = 1;
-            $room = Room::find($booking->inventory_id);
-            $room->update($data_inventory);
+            $data_room['isBooked'] = 1;
+            $room = Room::find($booking->room_id);
+            $room->update($data_room);
         }
 
         session(['alert' => 'add', 'data' => 'Room booking']);
@@ -59,53 +59,53 @@ class RoomBookingController extends Controller
     {
         [$type, $color, $data] = alert();
 
-        $booking = InventoryBooking::find($booking_id);
+        $booking = RoomBooking::find($booking_id);
 
-        return view('staff.inventory.booking.detail', compact('booking', 'type', 'color', 'data'));
+        return view('staff.room.booking.detail', compact('booking', 'type', 'color', 'data'));
     }
 
     public function edit($booking_id)
     {
         [$type, $color, $data] = alert();
 
-        $booking = InventoryBooking::find($booking_id);
+        $booking = RoomBooking::find($booking_id);
 
-        return view('staff.inventory.booking.edit', compact('booking', 'type', 'color', 'data'));
+        return view('staff.room.booking.edit', compact('booking', 'type', 'color', 'data'));
     }
 
-    public function update($booking_id, InventoryBookingRequest $request)
+    public function update($booking_id, RoomBookingRequest $request)
     {
         $data = $request->input();
-        $data['role'] = 'Staff';
-        $data['role_id'] = Auth::guard('staff')->user()->id;
+        // $data['role'] = 'Staff';
+        // $data['role_id'] = Auth::guard('staff')->user()->id;
 
-        $booking = InventoryBooking::find($booking_id);
+        $booking = RoomBooking::find($booking_id);
         $booking->update($data);
         
         if($booking->isApproved == 2)
         {
-            $data_inventory['isBooked'] = 0;
-            $inventory = Inventory::find($booking->inventory_id);
-            $inventory->update($data_inventory);
+            $data_room['isBooked'] = 0;
+            $room = Room::find($booking->room_id);
+            $room->update($data_room);
         }
 
-        session(['alert' => 'edit', 'data' => 'Inventory booking']);
+        session(['alert' => 'edit', 'data' => 'Room booking']);
 
-        return redirect('/staff/inventory/booking/' . $booking->id);
+        return redirect('/staff/room/booking/' . $booking->id);
     }
 
     public function delete($booking_id)
     {
-        $booking = InventoryBooking::find($booking_id);
+        $booking = RoomBooking::find($booking_id);
 
-        $data_inventory['isBooked'] = 0;
-        $inventory = Inventory::find($booking->inventory_id);
-        $inventory->update($data_inventory);
+        $data_room['isBooked'] = 0;
+        $room = Room::find($booking->room_id);
+        $room->update($data_room);
 
         $booking->delete();
 
-        session(['alert' => 'delete', 'data' => 'Inventory booking']);
+        session(['alert' => 'delete', 'data' => 'Room booking']);
 
-        return redirect('/staff/inventory/booking/10');
+        return redirect('/staff/room/booking/10');
     }
 }

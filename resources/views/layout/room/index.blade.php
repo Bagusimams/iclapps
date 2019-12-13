@@ -32,7 +32,9 @@
   <div class="box">
     <div class="box-body">
       <div class="col-sm-8">
-          <a href="{{ url('/' . $role . '/room/create') }}" class="btn btn-success col-sm-4">Add Room</a>
+          @if(Auth::guard('staff')->user())
+            <a href="{{ url('/' . $role . '/room/create') }}" class="btn btn-success col-sm-4">Add Room</a>
+          @endif
           {!! Form::label('show', 'Show', array('class' => 'col-sm-1 control-label')) !!}
           <div class="col-sm-2">
             {!! Form::select('show', getPagination(), $pagination, ['class' => 'form-control', 'style'=>'width: 100%', 'id' => 'show', 'onchange' => 'advanceSearch()']) !!}
@@ -45,26 +47,29 @@
         <thead>
             <tr>
               <th>Name</th>
-              <th>Available to be booked</th>
-              <th>Edit</th>
-              <th>Delete</th>
+              @if(Auth::guard('staff')->user())
+                <th>Edit</th>
+                <th>Delete</th>
+              @endif
             </tr>
         </thead>
         <tbody id="table-course">
           @foreach($rooms as $room)
             <tr>
               <td>{{ $room->name }}</td>
-              <td>{{ $room->isAvailable() }}</td>
-              <td><a href="{{ url('/' . $role. '/room/' . $room->id . '/edit') }}"><i class="fa fa-pencil-square-o orange"></i></a></td>
-              <td>
-                  <button type="button" class="no-btn" data-toggle="modal" data-target="#modal-danger-{{$room->id}}"><i class="fa fa-times red" aria-hidden="true"></i></button>
+              @if(Auth::guard('staff')->user())
+                <td><a href="{{ url('/' . $role. '/room/' . $room->id . '/edit') }}"><i class="fa fa-pencil-square-o orange"></i></a></td>
+                <td>
+                    <button type="button" class="no-btn" data-toggle="modal" data-target="#modal-danger-{{$room->id}}"><i class="fa fa-times red" aria-hidden="true"></i></button>
 
-                  @include('layout.deleteModal', ['id' => $room->id, 'data' => 'room', 'formName' => 'delete-form-' . $room->id])
+                    @include('layout.deleteModal', ['id' => $room->id, 'data' => 'room', 'formName' => 'delete-form-' . $room->id])
 
-                  <form id="delete-form-{{$room->id}}" action="{{ url('/' . $role . '/room/' . $room->id . '/delete') }}" method="POST" style="display: none;">
-                      {{ csrf_field() }}
-                      {{ method_field('DELETE') }}
-                  </form></td>
+                    <form id="delete-form-{{$room->id}}" action="{{ url('/' . $role . '/room/' . $room->id . '/delete') }}" method="POST" style="display: none;">
+                        {{ csrf_field() }}
+                        {{ method_field('DELETE') }}
+                    </form>
+                </td>
+              @endif
             </tr>
           @endforeach
         </tbody>
@@ -113,7 +118,7 @@
     function advanceSearch()
     {
       var show       = $('#show').val();   
-      window.location = window.location.origin + '/{{ $role }}/inventory/' + show;
+      window.location = window.location.origin + '/{{ $role }}/room/' + show;
     }
   </script>
 @endsection 

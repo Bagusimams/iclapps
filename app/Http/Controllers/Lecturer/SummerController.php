@@ -73,7 +73,7 @@ class SummerController extends Controller
         $pre = SummerSchoolPre::find($pre_id);
         $pre->update($data);
 
-        session(['alert' => 'edit', 'data' => 'Dual Degree']);
+        session(['alert' => 'edit', 'data' => 'Summer School']);
 
         return redirect('/lecturer/summer/' . $pre->university_exchange_id . '/1/10');
     }
@@ -85,7 +85,20 @@ class SummerController extends Controller
         $exchange = SummerSchoolForm::find($university_exchange_id);
         $exchange->update($data);
 
-        session(['alert' => 'edit', 'data' => 'Dual Degree']);
+        session(['alert' => 'edit', 'data' => 'Summer School']);
+
+        return redirect('/lecturer/summer/' . $exchange->university_exchange_id . '/1/10');
+    }
+
+    public function report($university_exchange_id, Request $request)
+    {
+        $data = $request->input();
+        $data['lecturer_id'] = Auth::guard('lecturer')->user()->id;
+
+        $exchange = SummerSchoolForm::find($university_exchange_id);
+        $exchange->update($data);
+
+        session(['alert' => 'edit', 'data' => 'Summer School']);
 
         return redirect('/lecturer/summer/' . $exchange->university_exchange_id . '/1/10');
     }
