@@ -165,7 +165,7 @@
     @if($SubmitButtonText == 'Edit')
         {!! Form::submit($SubmitButtonText, ['class' => 'btn btn-warning btn-flat btn-block form-control'])  !!}
     @elseif($SubmitButtonText == 'Tambah')
-        {!! Form::submit($SubmitButtonText, ['class' => 'btn btn-success btn-flat btn-block form-control'])  !!}
+        {!! Form::submit('Add', ['class' => 'btn btn-success btn-flat btn-block form-control'])  !!}
     @elseif($SubmitButtonText == 'View')
         <a href="{{ url('/' . $role . '/room/booking/' . $booking->id . '/edit') }}" class="btn btn-info btn-flat btn-block form-control">Edit Room Booking Detail</a>
     @endif

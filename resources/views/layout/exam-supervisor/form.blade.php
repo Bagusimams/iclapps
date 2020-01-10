@@ -119,7 +119,7 @@
 @if($SubmitButtonText == 'Edit')
     {!! Form::submit($SubmitButtonText, ['class' => 'btn btn-warning btn-flat btn-block form-control'])  !!}
 @elseif($SubmitButtonText == 'Tambah')
-    {!! Form::submit($SubmitButtonText, ['class' => 'btn btn-success btn-flat btn-block form-control'])  !!}
+    {!! Form::submit('Add', ['class' => 'btn btn-success btn-flat btn-block form-control'])  !!}
 @elseif($SubmitButtonText == 'View' && Auth::guard('student')->user() != null)
     <a href="{{ url('/' . $role . '/exam-supervisor/edit') }}" class="btn btn-info btn-flat btn-block form-control">Edit Proctor Detail</a>
 @elseif($SubmitButtonText == 'View')

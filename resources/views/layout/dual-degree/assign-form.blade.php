@@ -15,7 +15,7 @@
 @if($SubmitButtonText == 'Edit')
     {!! Form::submit($SubmitButtonText, ['class' => 'btn btn-warning btn-flat btn-block form-control'])  !!}
 @elseif($SubmitButtonText == 'Tambah')
-    {!! Form::submit($SubmitButtonText, ['class' => 'btn btn-success btn-flat btn-block form-control'])  !!}
+    {!! Form::submit('Add', ['class' => 'btn btn-success btn-flat btn-block form-control'])  !!}
 @endif
 
 @section('javascript-addon')

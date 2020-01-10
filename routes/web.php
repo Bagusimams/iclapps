@@ -45,22 +45,6 @@ Route::group(['prefix' => 'lecturer'], function () {
   Route::get('/password/reset/{token}', 'LecturerAuth\ResetPasswordController@showResetForm');
 });
 
-Route::group(['prefix' => 'student'], function () {
-  Route::get('/', 'Student\MainController@index');
-  Route::get('/login', 'StudentAuth\LoginController@showLoginForm');
-  // Route::post('/login', 'StudentAuth\LoginController@login')->name('student.login');
-  Route::post('/login', 'Student\LoginController@doLogin')->name('student.login');
-  Route::post('/logout', 'StudentAuth\LoginController@logout')->name('student.logout');
-
-  Route::get('/register', 'StudentAuth\RegisterController@showRegistrationForm')->name('register');
-  Route::post('/register', 'StudentAuth\RegisterController@register');
-
-  Route::post('/password/email', 'StudentAuth\ForgotPasswordController@sendResetLinkEmail')->name('password.request');
-  Route::post('/password/reset', 'StudentAuth\ResetPasswordController@reset')->name('password.email');
-  Route::get('/password/reset', 'StudentAuth\ForgotPasswordController@showLinkRequestForm')->name('password.reset');
-  Route::get('/password/reset/{token}', 'StudentAuth\ResetPasswordController@showResetForm');
-});
-
 Route::group(['prefix' => 'internship'], function () {
   Route::get('/', 'Internship\MainController@index');
   Route::get('/login', 'InternshipAuth\LoginController@showLoginForm')->name('login');
@@ -76,30 +60,46 @@ Route::group(['prefix' => 'internship'], function () {
   Route::get('/password/reset/{token}', 'InternshipAuth\ResetPasswordController@showResetForm');
 });
 
-Route::group(['prefix' => 'prodi'], function () {
-  Route::get('/login', 'ProdiAuth\LoginController@showLoginForm')->name('login');
-  Route::post('/login', 'ProdiAuth\LoginController@login');
-  Route::post('/logout', 'ProdiAuth\LoginController@logout')->name('logout');
+// Route::group(['prefix' => 'prodi'], function () {
+//   Route::get('/login', 'ProdiAuth\LoginController@showLoginForm')->name('login');
+//   Route::post('/login', 'ProdiAuth\LoginController@login');
+//   Route::post('/logout', 'ProdiAuth\LoginController@logout')->name('logout');
 
-  Route::get('/register', 'ProdiAuth\RegisterController@showRegistrationForm')->name('register');
-  Route::post('/register', 'ProdiAuth\RegisterController@register');
+//   Route::get('/register', 'ProdiAuth\RegisterController@showRegistrationForm')->name('register');
+//   Route::post('/register', 'ProdiAuth\RegisterController@register');
 
-  Route::post('/password/email', 'ProdiAuth\ForgotPasswordController@sendResetLinkEmail')->name('password.request');
-  Route::post('/password/reset', 'ProdiAuth\ResetPasswordController@reset')->name('password.email');
-  Route::get('/password/reset', 'ProdiAuth\ForgotPasswordController@showLinkRequestForm')->name('password.reset');
-  Route::get('/password/reset/{token}', 'ProdiAuth\ResetPasswordController@showResetForm');
-});
+//   Route::post('/password/email', 'ProdiAuth\ForgotPasswordController@sendResetLinkEmail')->name('password.request');
+//   Route::post('/password/reset', 'ProdiAuth\ResetPasswordController@reset')->name('password.email');
+//   Route::get('/password/reset', 'ProdiAuth\ForgotPasswordController@showLinkRequestForm')->name('password.reset');
+//   Route::get('/password/reset/{token}', 'ProdiAuth\ResetPasswordController@showResetForm');
+// });
 
-Route::group(['prefix' => 'prodi-pi'], function () {
-  Route::get('/login', 'ProdiPiAuth\LoginController@showLoginForm')->name('login');
-  Route::post('/login', 'ProdiPiAuth\LoginController@login');
-  Route::post('/logout', 'ProdiPiAuth\LoginController@logout')->name('logout');
+// Route::group(['prefix' => 'prodi-pi'], function () {
+//   Route::get('/login', 'ProdiPiAuth\LoginController@showLoginForm')->name('login');
+//   Route::post('/login', 'ProdiPiAuth\LoginController@login');
+//   Route::post('/logout', 'ProdiPiAuth\LoginController@logout')->name('logout');
 
-  Route::get('/register', 'ProdiPiAuth\RegisterController@showRegistrationForm')->name('register');
-  Route::post('/register', 'ProdiPiAuth\RegisterController@register');
+//   Route::get('/register', 'ProdiPiAuth\RegisterController@showRegistrationForm')->name('register');
+//   Route::post('/register', 'ProdiPiAuth\RegisterController@register');
 
-  Route::post('/password/email', 'ProdiPiAuth\ForgotPasswordController@sendResetLinkEmail')->name('password.request');
-  Route::post('/password/reset', 'ProdiPiAuth\ResetPasswordController@reset')->name('password.email');
-  Route::get('/password/reset', 'ProdiPiAuth\ForgotPasswordController@showLinkRequestForm')->name('password.reset');
-  Route::get('/password/reset/{token}', 'ProdiPiAuth\ResetPasswordController@showResetForm');
+//   Route::post('/password/email', 'ProdiPiAuth\ForgotPasswordController@sendResetLinkEmail')->name('password.request');
+//   Route::post('/password/reset', 'ProdiPiAuth\ResetPasswordController@reset')->name('password.email');
+//   Route::get('/password/reset', 'ProdiPiAuth\ForgotPasswordController@showLinkRequestForm')->name('password.reset');
+//   Route::get('/password/reset/{token}', 'ProdiPiAuth\ResetPasswordController@showResetForm');
+// });
+
+Route::group(['prefix' => 'student'], function () {
+  Route::get('/', 'Student\MainController@index');
+  Route::get('/login', 'StudentAuth\LoginController@showLoginForm');
+  // Route::post('/login', 'StudentAuth\LoginController@login')->name('student.login');
+  Route::post('/login', 'Student\LoginController@doLogin')->name('student.login');
+  Route::post('/logout', 'StudentAuth\LoginController@logout')->name('student.logout');
+
+  Route::get('/register', 'StudentAuth\RegisterController@showRegistrationForm')->name('register');
+  Route::post('/register', 'StudentAuth\RegisterController@register');
+
+  Route::post('/password/email', 'StudentAuth\ForgotPasswordController@sendResetLinkEmail')->name('password.request');
+  Route::post('/password/reset', 'StudentAuth\ResetPasswordController@reset')->name('password.email');
+  Route::get('/password/reset', 'StudentAuth\ForgotPasswordController@showLinkRequestForm')->name('password.reset');
+  Route::get('/password/reset/{token}', 'StudentAuth\ResetPasswordController@showResetForm');
 });
