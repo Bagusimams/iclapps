@@ -21,7 +21,7 @@ class LoginController extends Controller
     public function doLogin(Request $request)
     {
         $result = callPostGuzzle('/issueauth', null, $request->input());
-
+        
         if($result["status"] == "ok")
         {
             $result2 = callGetGuzzle('/8025fd46773b2ed931db2fe53048d5c3', $result['data']->token);

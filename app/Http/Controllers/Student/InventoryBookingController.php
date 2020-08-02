@@ -22,8 +22,24 @@ class InventoryBookingController extends Controller
     {
         [$type, $color, $data] = alert();
 
-        if($pagination == 'all') $bookings = InventoryBooking::where('role', 'Student')->where('role_id', Auth::guard('student')->user()->id)->get();
-        else $bookings = InventoryBooking::where('role', 'Student')->where('role_id', Auth::guard('student')->user()->id)->paginate($pagination);
+        if($pagination == 'all') 
+        {
+            $bookings = InventoryBooking::join('inventories', 'inventories.id', 'inventory_bookings.inventory_id')
+                                        ->select('inventory_bookings.*')
+                                        ->where('inventory.deleted_at', null)
+                                        ->where('inventory_bookings.role', 'Student')
+                                        ->where('inventory_bookings.role_id', Auth::guard('student')->user()->id)
+                                        ->get();
+        }
+        else 
+        {
+            $bookings = InventoryBooking::join('inventories', 'inventories.id', 'inventory_bookings.inventory_id')
+                                        ->select('inventory_bookings.*')
+                                        ->where('inventory.deleted_at', null)
+                                        ->where('inventory_bookings.role', 'Student')
+                                        ->where('inventory_bookings.role_id', Auth::guard('student')->user()->id)
+                                        ->paginate($pagination);
+        }
 
     	return view('student.inventory.booking.index', compact('bookings', 'type', 'color', 'data', 'pagination'));
     }

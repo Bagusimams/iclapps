@@ -2,7 +2,7 @@
 
 @section('content')     
     <section class="content">
-      <img class="img" src="{{asset('logo.png')}}" style="width: 100%">
+      <img class="img" src="{{asset('logo_int.png')}}" style="width: 100%">
       <h1><center>Welcome to I-CLAPPS<br>International Class Application System</center></h1>
     </section>
     

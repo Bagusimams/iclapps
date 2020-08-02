@@ -66,10 +66,10 @@ class LoginController extends Controller
         return Auth::guard('staff');
     }
 
-    // public function username()
-    // {
-    //     return 'username';
-    // }
+    public function username()
+    {
+        return 'username';
+    }
 
     public function logout(Request $request)
     {
