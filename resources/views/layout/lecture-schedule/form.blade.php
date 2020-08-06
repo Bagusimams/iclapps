@@ -283,7 +283,8 @@
             $('#tanggal_praktek').datepicker({
                 autoclose: true,
                 format: 'yyyy-mm-dd',
-                todayHighlight: true
+                todayHighlight: true,
+                orientation: bottom
             })
         });
 

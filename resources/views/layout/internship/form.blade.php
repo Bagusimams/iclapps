@@ -31,7 +31,7 @@
         </div>
 
         <div class="form-group">
-            {!! Form::label('end_date', 'Start Date', array('class' => 'col-sm-2 control-label')) !!}
+            {!! Form::label('end_date', 'End Date', array('class' => 'col-sm-2 control-label')) !!}
             <div class="col-sm-3">
                 @if($SubmitButtonText == 'View')
                     {!! Form::text('end_date', null, array('class' => 'form-control', 'readonly' => 'readonly')) !!}
@@ -97,13 +97,15 @@
             $('#start_date').datepicker({
                 autoclose: true,
                 format: 'yyyy-mm-dd',
-                todayHighlight: true
+                todayHighlight: true,
+                orientation: bottom
             })
 
             $('#end_date').datepicker({
                 autoclose: true,
                 format: 'yyyy-mm-dd',
-                todayHighlight: true
+                todayHighlight: true,
+                orientation: bottom
             })
         });
     </script>

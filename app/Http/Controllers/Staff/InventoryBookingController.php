@@ -26,12 +26,12 @@ class InventoryBookingController extends Controller
         {
             $bookings = InventoryBooking::join('inventories', 'inventories.id', 'inventory_bookings.inventory_id')
                                         ->select('inventory_bookings.*')
-                                        ->where('inventory.deleted_at', null)
+                                        ->where('inventories.deleted_at', null)
                                         ->all();
         }
         else $bookings = InventoryBooking::join('inventories', 'inventories.id', 'inventory_bookings.inventory_id')
                                         ->select('inventory_bookings.*')
-                                        ->where('inventory.deleted_at', null)
+                                        ->where('inventories.deleted_at', null)
                                         ->paginate($pagination);
 
     	return view('staff.inventory.booking.index', compact('bookings', 'type', 'color', 'data', 'pagination'));

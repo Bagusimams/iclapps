@@ -83,7 +83,10 @@ class StudentExchangeRequest extends FormRequest
     public function messages()
     {
         return [
-            // 'showOnInvBookingMenu.required'  => 'Booking tidak boleh kosong',
+            'file_passport.max'  => 'The file size is too big',
+            'file_toefl.max'  => 'The file size is too big',
+            'file_transcript.max'  => 'The file size is too big',
+            'file_financial.max'  => 'The file size is too big',
             // 'name.required'  => 'Nama obat tidak boleh kosong',
             // 'name.required'  => 'Nama obat tidak boleh kosong',
             // 'name.required'  => 'Nama obat tidak boleh kosong',

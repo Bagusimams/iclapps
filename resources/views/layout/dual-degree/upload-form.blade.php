@@ -55,12 +55,14 @@
             $('#start').datepicker({
                 autoclose: true,
                 format: 'yyyy-mm-dd',
-                todayHighlight: true
+                todayHighlight: true,
+                orientation: bottom
             })
             $('#end').datepicker({
                 autoclose: true,
                 format: 'yyyy-mm-dd',
-                todayHighlight: true
+                todayHighlight: true,
+                orientation: bottom
             })
         });
     </script>

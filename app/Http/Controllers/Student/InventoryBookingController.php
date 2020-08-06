@@ -1,4 +1,4 @@
-<?php
+inventories<?php
 
 namespace App\Http\Controllers\Student;
 
@@ -26,7 +26,7 @@ class InventoryBookingController extends Controller
         {
             $bookings = InventoryBooking::join('inventories', 'inventories.id', 'inventory_bookings.inventory_id')
                                         ->select('inventory_bookings.*')
-                                        ->where('inventory.deleted_at', null)
+                                        ->where('inventories.deleted_at', null)
                                         ->where('inventory_bookings.role', 'Student')
                                         ->where('inventory_bookings.role_id', Auth::guard('student')->user()->id)
                                         ->get();
@@ -35,7 +35,7 @@ class InventoryBookingController extends Controller
         {
             $bookings = InventoryBooking::join('inventories', 'inventories.id', 'inventory_bookings.inventory_id')
                                         ->select('inventory_bookings.*')
-                                        ->where('inventory.deleted_at', null)
+                                        ->where('inventories.deleted_at', null)
                                         ->where('inventory_bookings.role', 'Student')
                                         ->where('inventory_bookings.role_id', Auth::guard('student')->user()->id)
                                         ->paginate($pagination);

@@ -190,12 +190,14 @@
             $('#passport_expiry_date').datepicker({
                 autoclose: true,
                 format: 'yyyy-mm-dd',
-                todayHighlight: true
+                todayHighlight: true,
+                orientation: bottom
             })
             $('#birth_date').datepicker({
                 autoclose: true,
                 format: 'yyyy-mm-dd',
-                todayHighlight: true
+                todayHighlight: true,
+                orientation: bottom
             })
         });
 
