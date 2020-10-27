@@ -30,7 +30,7 @@
       </li>
       <li class="{{ Request::segment(2) == 'exam-supervisor' ? 'active' : ''  }} treeview">
         <a href="#">
-          <i class="fa fa-university"></i><span>Proctor</span>
+          <i class="fa fa-university"></i><span>Exam Supervisor</span>
           <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
           </span>
@@ -108,6 +108,31 @@
           <li class="{{ Request::segment(2) == 'winter' && Request::segment(3) == 'create' ? 'active' : '' }}"><a href="{{ url('student/winter/create') }}"><i class="fa fa-circle-o"></i> Add</a></li>
         </ul>
       </li>
+
+      <li class="{{ Request::segment(2) == 'winter' ? 'active' : ''  }} treeview">
+        <a href="#">
+          <i class="fa fa-book"></i><span>Form</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li class="{{ Request::segment(2) == 'winter' && Request::segment(3) == 'create' ? 'active' : '' }}"><a href="{{ url('student/winter/create') }}"><i class="fa fa-circle-o"></i> Add</a></li>
+        </ul>
+      </li>
+
+      <li class="{{ Request::segment(2) == 'winter' ? 'active' : ''  }} treeview">
+        <a href="#">
+          <i class="fa fa-book"></i><span>Announcement</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li class="{{ Request::segment(2) == 'winter' && Request::segment(3) == 'create' ? 'active' : '' }}"><a href="{{ url('student/winter/create') }}"><i class="fa fa-circle-o"></i> Add</a></li>
+        </ul>
+      </li>
+
     </ul>
   </section>
 </aside>

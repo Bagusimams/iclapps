@@ -91,8 +91,8 @@ Route::group(['prefix' => 'internship'], function () {
 Route::group(['prefix' => 'student'], function () {
   Route::get('/', 'Student\MainController@index');
   Route::get('/login', 'StudentAuth\LoginController@showLoginForm');
-  Route::post('/login', 'StudentAuth\LoginController@login')->name('student.login');
-  // Route::post('/login', 'Student\LoginController@doLogin')->name('student.login');
+ // Route::post('/login', 'StudentAuth\LoginController@login')->name('student.login');
+  Route::post('/login', 'Student\LoginController@doLogin')->name('student.login');
   Route::post('/logout', 'StudentAuth\LoginController@logout')->name('student.logout');
 
   Route::get('/register', 'StudentAuth\RegisterController@showRegistrationForm')->name('register');
